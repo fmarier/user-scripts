@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# Copy all of my downloaded podcasts to my iriver
+
+MOUNT_DIR="/media/usbdisk"
+PODCASTS_DIR="$MOUNT_DIR/Podcasts"
+
+sudo -v
+
+mount $MOUNT_DIR || exit 1
+
+# Move all of the recently downloaded podcasts
+echo "Podcasts to transfer: `find $HOME/podcasts -type f | wc -l`"
+if [ -e "$PODCASTS_DIR" ] ; then
+	find $HOME/podcasts -type f -name "*.mp4" -exec rm {} \;
+	find $HOME/podcasts -type f -exec mv {} $PODCASTS_DIR \;
+else
+	echo "ERROR: '$PODCASTS_DIR' does not exist."
+fi
+
+umount $MOUNT_DIR || exit 1
+
+# Run a quick scandisk on the drive
+sudo dosfsck -a -V /dev/sda1

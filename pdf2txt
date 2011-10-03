@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/pdftotext -enc UTF-8 -eol unix $1 -

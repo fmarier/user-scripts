@@ -1,0 +1,97 @@
+#!/usr/bin/perl
+#
+# Shows the route of an Internet mail message
+# Copyright (c) 1999 Marius Gedminas <mgedmin@takas.lt>
+#           (c) 2000-2011 Roland Rosenfeld <roland@spinnaker.de>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+# Based on Version 0.0.1pre-alpha by Marius Gedminas.
+# Patched by Roland Rosenfeld <roland@spinnaker.de>
+#
+# $Id: mailhops,v 1.4 2011/08/04 13:13:35 roland Exp roland $
+
+use warnings;
+use strict;
+use Date::Parse;
+
+my $verbose = 0;
+
+# Read headers
+$/ = '';
+my $head = <>;
+$head =~ s/\n\s+/ /g;
+my @headers = split("\n", $head);
+
+# Parse headers
+my @hops;
+for (@headers) {
+  next unless /^(>?Received|Date):/;
+  my $time;
+  my $host;
+  my $from;
+  if (/^Date:\s+(.*)/) {
+    $host = "Date:";
+    $time = $1;
+    $from = "";
+  } else {
+    $host = "(unknown)";
+    $host = $1 if /\sby\s+([a-z0-9\-_+.]+)\s/ && $1 ne "uid";
+    $from = "(unknown)";
+    $from = $1 if /\sfrom\s+([a-z0-9\-_+.]+(?:\s+[(].+?[)]))\s/;
+    $time = "(unknown)";
+    $time = $1 if /;\s+(.+)$/;
+    $time =~ s/using.*//;
+  }
+
+  my $epoch = str2time ($time);
+
+  unshift @hops, { HOST => $host, FROM => $from, TIME => $epoch};
+}
+
+# Print output
+print "    Host                            Date received (local)   Lag       Total lag\n";
+my $nr = 0;
+my ($first, $prev);
+for (@hops) {
+  my $host = $_->{HOST};
+  my $from = $_->{FROM};
+  my $time = $_->{TIME};
+  $first = $prev = $time unless defined $first;
+  printf "%2d. %-31.31s", ++$nr, $host;
+  do { print "\n"; next } unless defined $time;
+
+  my $delta = $time - $prev;
+  my $neg = $delta < 0; $delta = abs($delta);
+  my $delta_h = int($delta / 3600);
+  my $delta_m = int(($delta - $delta_h * 3600) / 60);
+  my $delta_s = ($delta - $delta_h * 3600 - $delta_m * 60);
+
+  my ($sec,$min,$hour,$day,$mon,$year,undef,undef,$dst) = localtime($time);
+
+  printf "  %4d-%02d-%02d  %02d:%02d:%02d  %s%02d:%02d:%02d",
+         1900+$year, $mon+1, $day, $hour, $min, $sec,
+	 $neg ? '-' : ' ', $delta_h, $delta_m, $delta_s;
+
+  $delta = $time - $first;
+  $neg = $delta < 0; $delta = abs($delta);
+  $delta_h = int($delta / 3600);
+  $delta_m = int(($delta - $delta_h * 3600) / 60);
+  $delta_s = ($delta - $delta_h * 3600 - $delta_m * 60);
+  printf "  %s%02d:%02d:%02d\n",
+	 $neg ? '-' : ' ', $delta_h, $delta_m, $delta_s;
+  print  "     from $from\n" if $verbose;
+  $prev = $time;
+}

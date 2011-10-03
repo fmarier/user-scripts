@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# spassh: wrapper around the ssh command for hosts which use single packet authentication
+#
+# External dependencies:
+# - perl
+#
+# NOTE: for the fwnkop command to work, you must have previously sent correct SPA packets
+#       to that host.
+
+# Extract the hostname from an scp destination
+hostname="`echo ${!#} | perl -pe 's/^([^@]*\@)?(.*)$/$2/'`"
+
+export http_proxy=""
+fwknop --quiet --Last-host $hostname && ssh $*

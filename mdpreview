@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Preview a markdown file in w3m
+#
+
+if [ "z$1" = "z" ] ; then
+        echo "Usage: $0 file.mdwn"
+        exit 1
+fi
+
+markdown "$1" | w3m -T text/html

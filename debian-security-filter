@@ -1,0 +1,44 @@
+#!/usr/bin/perl
+
+$headers_read = 0; # are we done reading the headers?
+$buffer = 0; # should we keep on buffering everything ?
+$msg = '';
+while (<>) {
+    if (/^\s*$/ and !$headers_read) {
+	$buffer = 1;
+	$headers_read = 1;
+    } elsif (/^Package\s*:\s+([\w\-]+(,\s*[\w\-]+)*)\s*$/) {
+	@packages = split /,/, $1;
+
+	@package_versions = ();
+	foreach $package_name (@packages) {
+	    $package_name =~ s/\s*([^\s]*)\s*/$1/g;
+
+	    $dpkg_status = `dpkg -s $package_name 2> /dev/null`;
+	    $installed_version = "none";
+	    if ($dpkg_status =~ /^Version: ([^\s\n]+)$/m) {
+		$installed_version = $1;
+	    }
+
+	    if (@packages > 1) {
+		push @package_versions, "$package_name = $installed_version";
+	    } else {
+		push @package_versions, "$installed_version";
+	    }
+	}
+
+	$version_string = join ", ", @package_versions;
+	print "X-Installed-Version: $version_string\n"; 
+	print $msg;
+	$msg = '';
+	$buffer = 0;
+    }
+
+    if ($buffer) {
+	$msg .= $_;
+    } else {
+	print;
+    }
+}
+
+print $msg; # flush buffer

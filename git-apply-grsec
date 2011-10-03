@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Apply a grsecurity patch over a kernel stored in git
+
+if [ "z$1" = "z" ] ; then
+	echo "Usage: $0 <grsecurity-version>.patch"
+	exit 1;
+elif [ ! -r "$1" ] ; then
+	echo "Cannot open file $1"
+	exit 2;
+elif [ ! -r ".config" ] ; then
+	echo "You must run this script inside the source tree of a configured kernel."
+	exit 3;
+fi
+
+# Remove the last patch if necessary
+NEEDS_RESET="`git log --oneline | head -1 | grep 'Applied grsecurity' >/dev/null && echo yes`"
+if [ "z$NEEDS_RESET" = "zyes" ] ; then
+        git reset --hard HEAD^
+        git clean -f
+        git clean -d -f
+fi
+
+fakeroot make-kpkg clean
+patch -p1 < $1
+git add grsecurity/ include/linux/gr* localversion-grsec tools/
+git add include/linux/netfilter net/netfilter scripts/gcc-plugin.sh
+git commit -a -m "Applied `basename $1`"

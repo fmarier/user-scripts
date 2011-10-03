@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# Needed by workrave
+mkdir -p /dev/shm/workrave-francois
+
+# Desktop environment
+gnome-settings-daemon &
+gnome-keyring-daemon
+gnome-power-manager &
+xscreensaver &
+gkrellm &
+unclutter &
+nm-applet &
+#dispwin /home/francois/documents/color_management/laptop_screen.cal
+
+# Vacuuming SQLite databases
+find $HOME/.mozilla/ \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
+
+# Cleanup unnecessary files
+rm -rf $HOME/.cache/chromium
+rm -rf $HOME/.thumbnails
+rm -rf $HOME/.local/share/Trash
+
+# Graphical programs
+emacs --daemon
+ionice -n7 akregator &
+
+# Needs to be started last apparently
+stalonetray &

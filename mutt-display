@@ -1,0 +1,45 @@
+#!/usr/bin/perl
+
+use IPC::Open2;
+
+$HOME="/home/francois";
+$EXTERNAL_FILTER="t-prot -acelmtS -Mmutt --spass --pgp-move-vrf --pgp-short --ftr-ad --ftr-ml --diff -L$HOME/.t-prot/mlfooters -A$HOME/.t-prot/adfooters --max-lines 500";
+
+sub convert_date_to_local
+{
+	my $original_date = shift;
+	my $new_date = `date -d "$original_date" +"%a, %d %b %Y %H:%M:%S %Z"`;
+	chomp($new_date);
+	return "Date: $new_date";
+}
+
+# TODO: make sure the writer is in UTF-8
+
+open2(READER, WRITER, "$EXTERNAL_FILTER");
+@text = ();
+foreach (<>) {
+#    s/^Date: (.*)$/&convert_date_to_local($1)/e;
+    s/&nbsp;/ /g;
+    s/&middot;/*/g;
+    s/&mdash;/--/g;
+    s/&rsquo;/'/g;
+#    s/\200/EUR/g;
+    s/\205/.../g;
+#    s/\234/oe/g;
+    s/[\221\222]/\'/g;
+#    s/[\223\224]/\"/g;
+    s/\225/*/g;
+    s/[\226\227]/--/g;
+#    s/\240/ /g;
+#    s/\251/(C)/g;
+    s/[\253\273]/"/g;
+    s/\265/u/g;
+    s/\275/1\/2/g;
+    s/\302//g;
+    s/\r//g;
+    print WRITER;
+}
+close WRITER;
+@text = <READER>;
+close READER;
+print join('', @text);

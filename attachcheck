@@ -1,0 +1,127 @@
+#!/usr/bin/env python
+
+# AttachCheck -- A MTA wrapper to help check outgoing email for
+# forgotten attachments.
+
+# (c) 2005 -- Benjamin Mako Hill <mako@bork.hampshire.edu>
+# Author/Software Homepage at: http://mako.cc
+
+# This software comes with ABSOLUTELY NO WARRANTY.
+# This is free software and is licensed under the GNU GPL.
+
+__copyright__ = "Copyright (c) 2004 Benjamin Mako Hill"
+__author__ = "Benjamin Mako Hill <mako@debian.org>" 
+
+### Configuration Options
+###########################################
+
+# location of the sendmail binary
+sendmail = "/usr/local/bin/hashcash-sendmail"
+
+# list of mimetype which are, for the sake of this program, not
+# attachments
+ignored_types = ( "applica/pgp-signat", "application/pgp-signature" )
+
+# list of regular expressions which we will view as being indicative
+# of an attachment
+attachment_regexes = [ r'\battach(ed|ment|ing)?\b(?im)' ]
+
+
+### No Edit Below This Line
+###########################################
+
+import sys
+import os
+import email
+import re
+
+## SUB: send message
+def send_message(): 
+    mailpipe = os.popen("%s" % sendmail, 'w')
+    mailpipe.write( message_string )
+    sys.exit( mailpipe.close() )
+
+## SUB: print error message
+def print_error():
+    print >>sys.stderr, \
+"""(Your message mentions attachments but does not include any.
+
+Either:
+
+ (1) Add an attachment or add \"CONFIRM\" (in ALLCAPS to beginning of
+     the subject of the message and resend.  \"CONFIRM\" will be
+     stripped from your message subject befor the message is sent.
+
+
+ (2) Add a \"X-AttachCheck-Override: Yes\" header the message.
+
+Read the documentation for AttachCheck for more details."""
+    
+# get the mail from stdin
+message_string = sys.stdin.read()
+message = email.message_from_string( message_string )
+
+attachment_expected = False
+attachment_seen = False
+text_seen = False
+
+for part in message.walk():
+
+    # check to see if this part is a plain text entry
+    if part.get_content_type() == "text/plain":
+
+        # if this is the second text block, we should interrate
+        # through things
+        if text_seen:
+            attachment_seen = True
+        # otherwise, mark that we've now seen one text field
+        else:
+            text_seen = True
+
+        # search for the word "attach" or "attached" or "attachment"
+        # in the body of the message
+        for regex in attachment_regexes:
+
+            if re.search( regex, part.get_payload() ):
+                attachment_expected = True
+
+    # check to see if this mime-type is something we can ignore
+    elif ( re.match( r'message/(?m)', part.get_content_type() ) or
+           re.match( r'multipart/(?m)', part.get_content_type() ) or
+           part.get_content_type() in ignored_types ):
+        continue
+
+    # if it's not text and it's an ignored type, it's a seen attachment
+    else:
+        attachment_seen = True
+
+# now check to see if we are expecting an attachment
+if attachment_expected:
+
+    # if we are expecting an attachment and we've seen one, we should
+    # send the file and be done with things
+    if attachment_seen:
+        send_message()
+
+    # if we are expected have not seen it, we need to check to see if
+    # the mail has been confirmed
+
+    else:
+        # check for the confirmation
+
+        if re.search( r'Subject: CONFIRM', message_string ):
+            message_string = re.sub( r'(Subject: )(CONFIRM )(.*?)\n',
+                                     r'\1\3\n', message_string )
+            send_message()
+
+        elif message.get( 'X-AttachCheck-Override' ) == "Yes":
+            send_message()
+            
+        else:
+            print_error()
+            sys.exit( 1 )
+
+
+# if we are not expecting anything more, we should send the message
+else:
+    send_message()

@@ -1,0 +1,47 @@
+#!/usr/bin/perl
+#
+# Script to download the latest grsecurity test patch and verify its GPG signature 
+#
+# Usage: grsecurity_download (grsecurity|pax|gradm)
+
+use strict;
+use warnings;
+
+if (0 == @ARGV) {
+    $ARGV[0] = 'grsecurity';
+}
+
+use LWP::Simple;
+my @lines = split(/\n/, get( 'http://www.grsecurity.net/test.php' ) );
+
+foreach ( @lines ) {
+    if (/test\/(pax|gradm|grsecurity)-/) {
+        my @patches = split(/<\/tr>/, $_);
+        my %url = ();
+        foreach (@patches) {
+            if (/"test\/(grsecurity-([^\-]+)-([^\-]+)-([0-9]{8})([0-9]{4})\.patch)"/) {
+                $url{'grsecurity'} = $1;
+            }
+            elsif (/"test\/(gradm-([^\-]+)-([0-9]{8})([0-9]{4})\.tar\.gz)"/) {
+                $url{'gradm'} = $1;
+            }
+            elsif (/"test\/(pax-linux-([^\-]+)-(test[0-9]+)\.patch)".*bodycopy">([^<]+)/) {
+                $url{'pax'} = $1;
+            }
+        }
+        my $url_prefix = 'http://www.grsecurity.net/test/';
+        if (defined(my $u = $url{$ARGV[0]})) {
+            my $ret;
+            $ret = system "curl --fail --progress-bar --compressed --output $u $url_prefix$u";
+            die 'Could not download file' unless 0 == $ret;
+            if ($ARGV[0] ne 'pax') {
+                $ret = system "curl --fail --silent --compressed --output $u.sig $url_prefix$u.sig";
+                die 'Count not download signature' unless 0 == $ret;
+                $ret = system "gpg --verify $u.sig";
+                unlink("$u.sig");
+                unlink($u) unless 0 == $ret;
+                print "$u downloaded.\n";
+            }
+        }
+    }
+}

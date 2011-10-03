@@ -1,0 +1,1 @@
+gs -sDEVICE=pdfwrite -sOutputFile=merged.pdf -q -dNOPAUSE $* quit.ps

@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Run mplayer with all options that are useful when dealing with broken files
+
+mplayer -ao sdl -nocache -nobps -ni -forceidx -mc 0 $1
