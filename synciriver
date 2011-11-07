@@ -22,3 +22,5 @@ umount $MOUNT_DIR || exit 1
 
 # Run a quick scandisk on the drive
 sudo dosfsck -a -V /dev/sda1
+
+sync
