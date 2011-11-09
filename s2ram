@@ -8,5 +8,5 @@ xsel -s -c
 xsel -b -c
 
 sync
-xscreensaver-command --lock
+gnome-screensaver-command --lock
 sudo pm-suspend

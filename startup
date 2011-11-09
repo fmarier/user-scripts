@@ -7,7 +7,7 @@ mkdir -p /dev/shm/workrave-francois
 gnome-settings-daemon &
 gnome-keyring-daemon
 gnome-power-manager &
-xscreensaver &
+gnome-screensaver &
 gkrellm &
 unclutter &
 nm-applet &
