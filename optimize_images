@@ -1,6 +1,8 @@
 #!/bin/sh
 
-find . -iname '*.png' -exec optipng -o7 -q {} \;
+# TODO: pngcrush -q -rem gAMA -rem alla -rem text {}.png {}.crushed.png
+find . -iname '*.png' -exec optipng -o9 -q {} \;
+find . -iname '*.png' -exec advpng -z -4 -q {} \;
 find . -iname '*.gif' -exec gifsicle -O2 -b {} \;
 find . -iname '*.jpg' -exec jpegoptim -p --strip-all {} \;
 find . -iname '*.jpeg' -exec jpegoptim -p --strip-all {} \;
