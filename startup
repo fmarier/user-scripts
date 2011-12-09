@@ -11,7 +11,7 @@ gnome-screensaver &
 gkrellm &
 unclutter &
 nm-applet &
-gcm-apply
+gcm-apply || dispwin ~/documents/color_management/laptop_screen.icc
 
 # Vacuuming SQLite databases
 find $HOME/.mozilla/ \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
