@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # TODO: make fwknop optional
-# TODO: hide sudo password while it's being typed in on the terminal
 
 if [ "z$1" = "z" ]; then
         echo "Usage: `basename $0` hostname"
@@ -14,7 +13,10 @@ TARGET_DISPLAY=":0.0"
 # Take the screenshot
 fwknop --quiet --Last-host $TARGET_HOST
 SCREENSHOT_FILE="`ssh $TARGET_HOST mktemp screenshotXXXXXXXX`.jpg"
+stty -echo
 ssh $TARGET_HOST rm `basename $SCREENSHOT_FILE .jpg` \&\& sudo -S DISPLAY=$TARGET_DISPLAY import -window root $SCREENSHOT_FILE || exit 2
+echo
+stty echo
 
 # Copy the screenshot over
 OUTPUT_FILE="`mktemp ./screenshotXXXXXXXX`.jpg"
