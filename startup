@@ -10,7 +10,7 @@ gnome-power-manager &
 gnome-screensaver &
 gkrellm &
 unclutter &
-wicd-gtk &
+nm-applet &
 
 # Vacuuming SQLite databases
 find $HOME/.mozilla/ \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
