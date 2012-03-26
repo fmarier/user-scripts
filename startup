@@ -6,7 +6,7 @@ mkdir -p /dev/shm/workrave-francois
 # Desktop environment
 gnome-settings-daemon &
 gnome-keyring-daemon
-gnome-power-manager &
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 gnome-screensaver &
 gkrellm &
 unclutter &
