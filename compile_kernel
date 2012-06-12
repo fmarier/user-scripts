@@ -24,6 +24,10 @@ fi
 # Prime sudo for later
 sudo -v
 
+# Disable PAX gcc plugins that are broken on Debian
+# https://bugs.gentoo.org/show_bug.cgi?id=413425
+export DISABLE_PAX_PLUGINS=1
+
 # Compile the kernel into a Debian package
 sudo ionice -c3 fakeroot make-kpkg clean
 nice eatmydata fakeroot make-kpkg --revision=1.0+custom kernel_image &
