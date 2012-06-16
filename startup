@@ -25,5 +25,4 @@ emacs --daemon
 ionice -n7 akregator &
 
 # Needs to be started last apparently
-gcm-apply || dispwin ~/documents/color_management/laptop_screen.icc
 stalonetray &
