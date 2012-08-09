@@ -25,4 +25,4 @@ my $from = $msg->head->get('from') || "";
 chomp ($subject, $from);
 my $note_body = uri_escape("  Subject: $subject\n    From: $from");
 
-exec "emacs", "org-protocol:/remember:/m/mutt:$mid/mail/$note_body";
+exec "emacsclient", "-t", "org-protocol:/remember:/m/mutt:$mid/mail/$note_body";
