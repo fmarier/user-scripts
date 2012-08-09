@@ -25,5 +25,5 @@ fakeroot make-kpkg clean
 (patch -p1 < $1) || (echo "Failed to apply patch" && exit 1)
 git add grsecurity/ include/linux/gr* localversion-grsec tools/
 git add include/linux/netfilter net/netfilter scripts/gcc-plugin.sh
-git add include/trace/events
+git add include/trace/events arch/x86/kernel/acpi/realmode
 git commit -a -m "Applied `basename $1`"
