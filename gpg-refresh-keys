@@ -1,3 +1,4 @@
 #!/bin/bash
 /usr/bin/gpg2 --keyserver-options honor-keyserver-url=no --refresh-keys > /dev/null 2>&1
 GIT_DIR=/home/francois/.git git commit --quiet -m "Automated key refresh" .gnupg/pubring.gpg > /dev/null
+/usr/bin/gpg2 --batch --check-trustdb
