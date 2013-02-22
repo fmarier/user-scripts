@@ -1,0 +1,3 @@
+#!/bin/bash
+(curl --silent http://www.opensourcedays.org/2013/saturday | grep Marier) || true
+(curl --silent http://www.opensourcedays.org/2013/sunday | grep Marier) || true

@@ -1,0 +1,3 @@
+#!/bin/bash
+URL=http://conference.auscert.org.au/conf2013/speaker_Francois_Marier.html
+(curl --fail --silent --head $URL > /dev/null && w3m -dump $URL) || true
