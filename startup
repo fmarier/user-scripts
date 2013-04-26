@@ -11,6 +11,7 @@ gnome-screensaver &
 gkrellm &
 unclutter &
 nm-applet &
+git annex assistant --autostart
 
 # Vacuuming SQLite databases
 find $HOME/.mozilla/ \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
