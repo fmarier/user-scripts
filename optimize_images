@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# TODO: pngcrush -q -rem gAMA -rem alla -rem text {}.png {}.crushed.png
+find . -iname '*.png' -exec pngstripper {} \;
 find . -iname '*.png' -exec optipng -o9 -q {} \;
 find . -iname '*.png' -exec advpng -z -4 -q {} \;
 find . -iname '*.gif' -exec gifsicle -O2 -b {} \;
