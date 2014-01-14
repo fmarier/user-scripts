@@ -3,10 +3,12 @@
 POP_FILE=`mktemp`
 IMAP_FILE=`mktemp`
 SMTP_FILE=`mktemp`
+NEO_FILE=`mktemp`
 
 echo "" | openssl s_client -connect pop.gmail.com:995 -showcerts > $POP_FILE 2> /dev/null
 echo "" | openssl s_client -connect imap.gmail.com:993 -showcerts > $IMAP_FILE 2> /dev/null
 echo "" | openssl s_client -connect smtp.gmail.com:587 -starttls smtp -showcerts > $SMTP_FILE 2> /dev/null
+echo "" | openssl s_client -connect neomailbox.net:993 -showcerts > $NEO_FILE 2> /dev/null
 
 echo "pop.gmail.com:"
 openssl x509 -fingerprint -md5 -noout -in $POP_FILE
@@ -18,3 +20,7 @@ openssl x509 -fingerprint -md5 -noout -in $IMAP_FILE
 echo
 echo "smtp.gmail.com:"
 openssl x509 -fingerprint -sha1 -noout -in $SMTP_FILE
+
+echo
+echo "neomailbox.net:"
+openssl x509 -fingerprint -md5 -noout -in $NEO_FILE
