@@ -8,7 +8,6 @@ gnome-settings-daemon &
 gnome-keyring-daemon
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 gnome-screensaver &
-gkrellm &
 unclutter &
 nm-applet &
 git annex assistant --autostart
@@ -24,6 +23,3 @@ rm -rf $HOME/.local/share/Trash
 # Graphical programs
 emacs --daemon
 ionice -n7 akregator &
-
-# Needs to be started last apparently
-stalonetray &
