@@ -12,4 +12,4 @@
 hostname="`echo ${!#} | perl -pe 's/^([^@]*\@)?(.*)$/$2/'`"
 
 export http_proxy=""
-fwknop --quiet --Last-host $hostname && ssh $*
+fwknop --last-cmd $hostname && ssh $*
