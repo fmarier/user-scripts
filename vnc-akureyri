@@ -1,2 +1,5 @@
 #!/bin/sh
+#
+# http://feeding.cloud.geek.nz/posts/high-latency-vnc-tech-support/
+
 ssvncviewer -compresslevel 9 -quality 3 -bgr233 -encodings zrle -use64 -scale 1280x775 -ycrop 1024 localhost
