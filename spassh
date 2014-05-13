@@ -11,5 +11,11 @@
 # Extract the hostname from an scp destination
 hostname="`echo ${!#} | perl -pe 's/^([^@]*\@)?(.*)$/$2/'`"
 
+version=`fwknop -V | head -1 | cut -d'v' -f2 | cut -d'.' -f1`
+
 export http_proxy=""
-fwknop --last-cmd $hostname && ssh $*
+if [ "$version" = "1" ] ; then
+  fwknop --quiet --Last-host $hostname && ssh $*
+else
+  fwknop --last-cmd $hostname && ssh $*
+fi
