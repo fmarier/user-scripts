@@ -1,7 +1,5 @@
 #!/bin/sh
 
-sudo -v
-
 # Clear all clipboards
 xsel -p -c
 xsel -s -c
@@ -9,4 +7,4 @@ xsel -b -c
 
 sync
 gnome-screensaver-command --lock
-sudo pm-suspend
+sudo /usr/sbin/pm-suspend
