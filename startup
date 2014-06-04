@@ -10,6 +10,7 @@ gnome-keyring-daemon
 gnome-screensaver &
 unclutter &
 nm-applet &
+xautolock -time 30 -locker "gnome-screensaver-command --lock" &
 git annex assistant --autostart
 
 # Vacuuming SQLite databases
