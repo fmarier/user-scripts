@@ -1,0 +1,6 @@
+#!/bin/bash
+sudo -v || exit 1
+killall VidyoDesktop
+sudo rmmod xhci_hcd
+sudo modprobe xhci_hcd
+VidyoDesktop
