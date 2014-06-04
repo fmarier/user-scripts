@@ -1,0 +1,5 @@
+#!/bin/bash
+pushd ~/devel/gaia
+make clean
+NOFTU=1 DEVICE_DEBUG=1 make
+popd

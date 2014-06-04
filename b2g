@@ -1,0 +1,9 @@
+#!/bin/bash
+
+RUNAPP=""
+
+if [ "z$1" != "z" ] ; then
+  RUNAPP="--runapp $1"
+fi
+
+/home/francois/devel/build_central_b2g/dist/bin/b2g -profile /home/francois/devel/gaia/profile -jsconsole $RUNAPP
