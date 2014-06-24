@@ -5,12 +5,13 @@
 #   keyserver hkps://hkps.pool.sks-keyservers.net
 #   keyserver-options ca-cert-file=/etc/ssl/certs/sks-keyservers.netCA.pem
 #   keyserver-options honor-keyserver-url=no
+#   keyserver-options http-proxy=http://127.0.0.1:8008
 #
 # and download the server's public key into /etc/ssl/certs/
 #
 #   wget https://sks-keyservers.net/sks-keyservers.netCA.pem
 
-/usr/bin/parcimonie > /dev/null 2>&1
+/usr/bin/gpg2 --refresh-keys --quiet > /dev/null 2>&1
 if [ -d /home/francois/.git ] ; then
     GIT_DIR=/home/francois/.git git commit --quiet -m "Automated key refresh" .gnupg/pubring.gpg > /dev/null
 fi
