@@ -4,12 +4,10 @@
 #
 # External dependencies:
 # - perl
-# - rsync
 #
-# NOTE: for the fwnkop command to work, you must have previously sent correct SPA packets
-#       to that host.
+# NOTE: for the fwknop command to work, you must first configure it in ~/.fwknoprc
 
 # Extract the hostname from an scp destination
 hostname="`echo ${!#} | perl -pe 's/^([^@]*\@)?([^:]+):.*$/$2/'`"
 
-fwknop --quiet --Last-host $hostname && scp $*
+fwknop -n $hostname && scp $*

@@ -5,8 +5,7 @@
 # External dependencies:
 # - perl
 #
-# NOTE: for the fwnkop command to work, you must have previously sent correct SPA packets
-#       to that host.
+# NOTE: for the fwknop command to work, you must first configure it in ~/.fwknoprc
 
 # Extract the hostname from an scp destination
 hostname="`echo ${!#} | perl -pe 's/^([^@]*\@)?(.*)$/$2/'`"
@@ -17,5 +16,5 @@ export http_proxy=""
 if [ "$version" = "1" ] ; then
   fwknop --quiet --Last-host $hostname && ssh $*
 else
-  fwknop --last-cmd $hostname && ssh $*
+  fwknop -n $hostname && ssh $*
 fi
