@@ -11,6 +11,7 @@ gnome-screensaver &
 nm-applet &
 xautolock -time 30 -locker "gnome-screensaver-command --lock" &
 git annex assistant --autostart
+i3-battery-indicator &
 
 # Vacuuming SQLite databases
 find $HOME/.mozilla/ \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
