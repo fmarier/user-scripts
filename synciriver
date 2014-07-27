@@ -21,6 +21,6 @@ fi
 umount $MOUNT_DIR || exit 1
 
 # Run a quick scandisk on the drive
-sudo dosfsck -a -V /dev/sdb1
+sudo dosfsck -a -V /dev/sdc1
 
 sync
