@@ -6,5 +6,5 @@ fi
 
 pushd ~/devel/mozilla-central
 export MOZCONFIG=`pwd`/.mozconfig-desktop
-./mach build
+./mach build $*
 popd
