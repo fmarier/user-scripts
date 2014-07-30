@@ -1,0 +1,4 @@
+#!/bin/sh
+xrandr --output DP2 --auto
+xrandr --output eDP1 --auto
+xrandr --output DP2 --above eDP1
