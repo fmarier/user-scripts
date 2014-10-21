@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# This script is designed to be run from cron to populate ccache
+
+if ! on_ac_power
+then
+  echo "Running on battery, bailing!"
+  exit 1
+fi
+
+pushd /var/cache/mozilla/mozilla-central > /dev/null
+nocache ionice -n7 nice hg pull --update --quiet
+nocache ionice -n7 nice ./mach clobber > /dev/null
+nocache ionice -n7 nice ./mach build > /dev/null
+popd > /dev/null
