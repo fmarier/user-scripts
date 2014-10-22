@@ -3,4 +3,5 @@ sudo -v || exit 1
 killall VidyoDesktop
 sudo rmmod xhci_hcd
 sudo modprobe xhci_hcd
+export PULSE_LATENCY_MSEC=60
 VidyoDesktop
