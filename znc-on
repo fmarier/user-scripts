@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh irc.fmarier.org "pgrep znc || znc"

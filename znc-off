@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh irc.fmarier.org killall -sSIGINT znc

@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Start my znc-based IRC bouncer before running irssi and prompt to
+# kill it afterwards.
+
+znc-on
+irssi
+read -p "Terminate the bouncer? [y/N] " -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    znc-off
+fi
