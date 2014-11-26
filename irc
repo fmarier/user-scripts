@@ -6,7 +6,7 @@
 znc-on
 irssi
 read -p "Terminate the bouncer? [y/N] " -n 1 -r
-echo    # (optional) move to a new line
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     znc-off
