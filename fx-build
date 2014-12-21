@@ -14,9 +14,12 @@ fi
 pushd ~/devel/mozilla-central
 export MOZCONFIG=`pwd`/.mozconfig-desktop
 ./mach build $*
+RET=$?
 popd
 
 if [ "$OLD_CPU_GOVERNOR" != "performance" ] ; then
   echo "Changing your CPU back to the $OLD_CPU_GOVERNOR governor."
   sudo cpufreq $OLD_CPU_GOVERNOR
 fi
+
+exit $RET
