@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# Script for automatically skipping mercurial revisions that won't compile
+# during an hg bisect
+#
+# This allows for unattended skipping of large ranges of problematic commits.
+# The forced clobber is there to avoid any potential bugs with the build
+# system.
+
+hg bisect --skip
+./mach clobber
+./mach build > /dev/null || bisect-skip
