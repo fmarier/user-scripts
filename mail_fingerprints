@@ -1,14 +1,16 @@
 #!/bin/sh
 
 POP_FILE=`mktemp`
-IMAP_FILE=`mktemp`
+IMAP1_FILE=`mktemp`
+IMAP2_FILE=`mktemp`
 NEO_FILE=`mktemp`
 SMTP1_FILE=`mktemp`
 SMTP2_FILE=`mktemp`
 
 echo "" | openssl s_client -connect pop.gmail.com:995 -showcerts > $POP_FILE 2> /dev/null
-echo "" | openssl s_client -connect imap.gmail.com:993 -showcerts > $IMAP_FILE 2> /dev/null
+echo "" | openssl s_client -connect imap.gmail.com:993 -showcerts > $IMAP1_FILE 2> /dev/null
 echo "" | openssl s_client -connect neomailbox.net:993 -showcerts > $NEO_FILE 2> /dev/null
+echo "" | openssl s_client -connect imap.mykolab.com:993 -showcerts > $IMAP2_FILE 2> /dev/null
 echo "" | openssl s_client -connect smtp.gmail.com:587 -starttls smtp -showcerts > $SMTP1_FILE 2> /dev/null
 echo "" | openssl s_client -connect smtp.mykolab.com:587 -starttls smtp -showcerts > $SMTP2_FILE 2> /dev/null
 
@@ -17,11 +19,15 @@ openssl x509 -fingerprint -md5 -noout -in $POP_FILE && rm $POP_FILE
 
 echo
 echo "imap.gmail.com:"
-openssl x509 -fingerprint -md5 -noout -in $IMAP_FILE && rm $IMAP_FILE
+openssl x509 -fingerprint -md5 -noout -in $IMAP1_FILE && rm $IMAP1_FILE
 
 echo
 echo "neomailbox.net:"
 openssl x509 -fingerprint -md5 -noout -in $NEO_FILE && rm $NEO_FILE
+
+echo
+echo "imap.mykolab.com:"
+openssl x509 -fingerprint -md5 -noout -in $IMAP2_FILE && rm $IMAP2_FILE
 
 echo
 echo "smtp.gmail.com:"
