@@ -7,6 +7,11 @@
 # The forced clobber is there to avoid any potential bugs with the build
 # system.
 
+function again {
+  sleep 1
+  bisect-skip
+}
+
 hg bisect --skip
 ./mach clobber
-./mach build > /dev/null || bisect-skip
+./mach build > /dev/null || again
