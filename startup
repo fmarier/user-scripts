@@ -14,6 +14,7 @@ git annex assistant --autostart
 i3-battery-indicator &
 xset dpms 1800 3600 3630
 dnssec-trigger-panel &
+redshift-gtk -l manual &
 
 # Vacuuming SQLite databases
 find $HOME/.mozilla/ \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
