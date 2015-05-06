@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# Output a PDF for the given calendar month
+
+MONTH="$1"
+YEAR="$2"
+
+if [ "$MONTH" = "" ]; then
+    echo "Usage: $0 <month> [ <year> ]"
+    exit 1
+fi
+
+if [ "$YEAR" = "" ]; then
+    YEAR="$(date +%Y)"
+fi
+
+PSFILE="$(mktemp calendar-XXXX.ps)"
+PDFFILE="$(mktemp -p. calendar-XXXX.pdf)"
+
+pcal -F 1 -m -o $PSFILE $MONTH $YEAR
+ps2pdf $PSFILE $PDFFILE
+rm -f $PSFILE
+
+echo Generated $PDFFILE
