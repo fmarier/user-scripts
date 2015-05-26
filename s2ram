@@ -6,5 +6,4 @@ xsel -s -c
 xsel -b -c
 
 sync
-gnome-screensaver-command --lock
-sudo /usr/sbin/pm-suspend
+systemctl suspend
