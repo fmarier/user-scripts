@@ -1,4 +1,4 @@
 #!/bin/sh
 xrandr --output DP2 --auto
 xrandr --output eDP1 --auto
-xrandr --output DP2 --above eDP1
+xrandr --output DP2 --left-of eDP1
