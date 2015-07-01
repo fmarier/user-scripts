@@ -5,5 +5,8 @@ xsel -p -c
 xsel -s -c
 xsel -b -c
 
+# Kill sudo session
+sudo -k
+
 sync
 systemctl suspend
