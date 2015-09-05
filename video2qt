@@ -10,13 +10,13 @@ orig_video="$1"
 final_video="$orig_video.mp4"
 
 if [ "z$orig_video" = "z" ] ; then
-	echo "Usage: ${appname} video_file"
-	exit 1
+    echo "Usage: ${appname} video_file"
+    exit 1
 fi
 
 if [ ! -r "$orig_video" ] ; then
-	echo "File '$orig_video' is unreadable."
-	exit 2
+    echo "File '$orig_video' is unreadable."
+    exit 2
 fi
 
 # First pass

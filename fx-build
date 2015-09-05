@@ -7,8 +7,8 @@
 
 OLD_CPU_GOVERNOR="$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)"
 if [ "$OLD_CPU_GOVERNOR" != "performance" ] ; then
-  echo "WARNING: your main CPU is set to the $OLD_CPU_GOVERNOR governor, changing to the performance one."
-  sudo cpufreq performance
+    echo "WARNING: your main CPU is set to the $OLD_CPU_GOVERNOR governor, changing to the performance one."
+    sudo cpufreq performance
 fi
 
 pushd ~/devel/mozilla-central
@@ -20,8 +20,8 @@ RET=$?
 popd
 
 if [ "$OLD_CPU_GOVERNOR" != "performance" ] ; then
-  echo "Changing your CPU back to the $OLD_CPU_GOVERNOR governor."
-  sudo cpufreq "$OLD_CPU_GOVERNOR"
+    echo "Changing your CPU back to the $OLD_CPU_GOVERNOR governor."
+    sudo cpufreq "$OLD_CPU_GOVERNOR"
 fi
 
 exit $RET

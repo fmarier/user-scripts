@@ -5,40 +5,41 @@ $buffer = 0; # should we keep on buffering everything ?
 $msg = '';
 while (<>) {
     if (/^\s*$/ and !$headers_read) {
-	$buffer = 1;
-	$headers_read = 1;
+        $buffer = 1;
+        $headers_read = 1;
     } elsif (/^Package\s*:\s+([\w\-]+(,\s*[\w\-]+)*)\s*$/) {
-	@packages = split /,/, $1;
+        @packages = split /,/, $1;
 
-	@package_versions = ();
-	foreach $package_name (@packages) {
-	    $package_name =~ s/\s*([^\s]*)\s*/$1/g;
+        @package_versions = ();
+        foreach $package_name (@packages) {
+            $package_name =~ s/\s*([^\s]*)\s*/$1/g;
 
-	    $dpkg_status = `dpkg -s $package_name 2> /dev/null`;
-	    $installed_version = "none";
-	    if ($dpkg_status =~ /^Version: ([^\s\n]+)$/m) {
-		$installed_version = $1;
-	    }
+            $dpkg_status = `dpkg -s $package_name 2> /dev/null`;
+            $installed_version = "none";
+            if ($dpkg_status =~ /^Version: ([^\s\n]+)$/m) {
+                $installed_version = $1;
+            }
 
-	    if (@packages > 1) {
-		push @package_versions, "$package_name = $installed_version";
-	    } else {
-		push @package_versions, "$installed_version";
-	    }
-	}
+            if (@packages > 1) {
+                push @package_versions, "$package_name = $installed_version";
+            } else {
+                push @package_versions, "$installed_version";
+            }
+        }
 
-	$version_string = join ", ", @package_versions;
-	print "X-Installed-Version: $version_string\n"; 
-	print $msg;
-	$msg = '';
-	$buffer = 0;
+        $version_string = join ", ", @package_versions;
+        print "X-Installed-Version: $version_string\n";
+        print $msg;
+        $msg = '';
+        $buffer = 0;
     }
 
     if ($buffer) {
-	$msg .= $_;
+        $msg .= $_;
     } else {
-	print;
+        print;
     }
 }
 
-print $msg; # flush buffer
+# flush buffer
+print $msg;

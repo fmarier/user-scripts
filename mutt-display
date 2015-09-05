@@ -7,10 +7,10 @@ $EXTERNAL_FILTER="t-prot -acelmtS -Mmutt --spass --pgp-move-vrf --pgp-short --ft
 
 sub convert_date_to_local
 {
-	my $original_date = shift;
-	my $new_date = `date -d "$original_date" +"%a, %d %b %Y %H:%M:%S %Z"`;
-	chomp($new_date);
-	return "Date: $new_date";
+    my $original_date = shift;
+    my $new_date = `date -d "$original_date" +"%a, %d %b %Y %H:%M:%S %Z"`;
+    chomp($new_date);
+    return "Date: $new_date";
 }
 
 # TODO: make sure the writer is in UTF-8

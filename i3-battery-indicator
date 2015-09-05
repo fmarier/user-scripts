@@ -9,14 +9,12 @@ DANGER_PERCENT=15  # Warn when battery at this level.
 NAGBAR_PID=0
 export DISPLAY=:0.0
 
-function launchNagBar
-{
+function launchNagBar {
     i3-nagbar -m 'Battery low!' &
     NAGBAR_PID=$!
 }
 
-function killNagBar
-{
+function killNagBar {
     if [[ $NAGBAR_PID -ne 0 ]]; then
         # shellcheck disable=SC2009
         ps -p $NAGBAR_PID | grep "i3-nagbar"

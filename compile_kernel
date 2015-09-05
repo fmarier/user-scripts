@@ -4,21 +4,21 @@
 #
 
 if [ ! -r .config ] ; then
-	echo "You must be in the source directory of a configured kernel."
-	exit 1
+    echo "You must be in the source directory of a configured kernel."
+    exit 1
 fi
 
 VERSION=$(git log --oneline | head | cut -d' ' -f2,3 | grep "^Linux" | head -1 | cut -d' ' -f2)
 
 if [ "z$VERSION" = "z" ] ; then
-	echo "Could not extract kernel version from the git log."
-	exit 2;
+    echo "Could not extract kernel version from the git log."
+    exit 2;
 fi
 
 # Set the number of parallel runs of gcc
 export CONCURRENCY_LEVEL=$1
 if [ "z$1" = "z" ] ; then
-	export CONCURRENCY_LEVEL=3
+    export CONCURRENCY_LEVEL=3
 fi
 
 # Prime sudo for later

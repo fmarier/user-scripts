@@ -12,10 +12,10 @@ mount "$MOUNT_DIR" || exit 1
 # Move all of the recently downloaded podcasts
 echo "Podcasts to transfer: $(find "$HOME/podcasts" -type f | wc -l)"
 if [ -e "$PODCASTS_DIR" ] ; then
-	find "$HOME/podcasts" -type f -name "*.mp4" -exec rm {} \;
-	find "$HOME/podcasts" -type f -exec mv {} "$PODCASTS_DIR" \;
+    find "$HOME/podcasts" -type f -name "*.mp4" -exec rm {} \;
+    find "$HOME/podcasts" -type f -exec mv {} "$PODCASTS_DIR" \;
 else
-	echo "ERROR: '$PODCASTS_DIR' does not exist."
+    echo "ERROR: '$PODCASTS_DIR' does not exist."
 fi
 
 umount "$MOUNT_DIR" || exit 1

@@ -5,13 +5,13 @@
 filename="$(basename "$1" .tex)"
 
 function cleanup {
-	mv -f "$filename.ps" "$filename.aux" "$filename.bbl" "$filename.blg" "$filename.log" "$filename.dvi" "$filename.lof" "$filename.toc" texput.log /tmp 2> /dev/null
-	echo "$(untex -a -e -m -o "$filename.tex" | wc -w)" words
+    mv -f "$filename.ps" "$filename.aux" "$filename.bbl" "$filename.blg" "$filename.log" "$filename.dvi" "$filename.lof" "$filename.toc" texput.log /tmp 2> /dev/null
+    echo "$(untex -a -e -m -o "$filename.tex" | wc -w)" words
 }
 
 function terminate {
-	cleanup
-	exit 1
+    cleanup
+    exit 1
 }
 
 latex "$filename.tex" || terminate

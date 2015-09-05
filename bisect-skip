@@ -8,8 +8,8 @@
 # system.
 
 function again {
-  sleep 1
-  bisect-skip
+    sleep 1
+    bisect-skip
 }
 
 hg bisect --skip

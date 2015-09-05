@@ -66,7 +66,6 @@ while ( <> )
         elsif ( /^n:\s*(.*);\s*(.*)$/i )
         {
             @additional = ( "", "Additional information:", "" ) if $#additional == -1;
-
             @additional = ( @additional, "Last Name:\t$1", "First Name:\t$2" );
         }
         elsif ( /^title:\s*(.*)$/i )
@@ -80,32 +79,25 @@ while ( <> )
         elsif ( /^adr:\s*(.*)$/i )
         {
             my $addr = $1;
-            
             $addr =~ s/;+/;/g;
-                
             @address = split( /;/, $addr );
         }
         elsif ( /^email;\s*(.*?):\s*(.*)$/i || /^tel;\s*(.*?):\s*(.*)$/i )
         {
             my $type  = $1;
             my $value = $2;
-
-            @contacts = ( @contacts, uc( substr( $type, 0, 1 ) ) .
-                         substr( $type, 1 ) . ": $value" );
+            @contacts = ( @contacts, uc( substr( $type, 0, 1 ) ) . substr( $type, 1 ) . ": $value" );
         }
         elsif ( /^note:\s*(.*)$/i )
         {
             @notes = ( "" ) if $#notes == -1;
             @notes = ( @notes, $1 );
-            
             $found_note = 1;
         }
         elsif ( /^=.{2}=$/ && $found_note )
         {
             my $line = <>;
-
             chomp( $line );
-            
             @notes = ( "" ) if $#notes == -1;
             @notes = ( @notes, $line );
         }

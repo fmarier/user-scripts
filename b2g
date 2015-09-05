@@ -3,7 +3,7 @@
 RUNAPP=""
 
 if [ "z$1" != "z" ] ; then
-  RUNAPP="--runapp $1"
+    RUNAPP="--runapp $1"
 fi
 
 # shellcheck disable=SC2086
