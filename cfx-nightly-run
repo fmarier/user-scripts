@@ -7,4 +7,5 @@
 #   cfs-nightly-run
 #   cfs-nightly-run --e10s
 
+# shellcheck disable=SC2048,SC2086
 cfx run -b /home/francois/devel/mozilla-central/obj-x86_64-unknown-linux-gnu/dist/bin/firefox $*

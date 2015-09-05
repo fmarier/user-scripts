@@ -8,7 +8,7 @@ if [ ! -r .config ] ; then
 	exit 1
 fi
 
-VERSION=`git log --oneline | head | cut -d' ' -f2,3 | grep "^Linux" | head -1 | cut -d' ' -f2`
+VERSION=$(git log --oneline | head | cut -d' ' -f2,3 | grep "^Linux" | head -1 | cut -d' ' -f2)
 
 if [ "z$VERSION" = "z" ] ; then
 	echo "Could not extract kernel version from the git log."
@@ -33,5 +33,5 @@ wait $BACKGROUND_BUILD || exit 1
 
 # Install the package
 sudo mount -o remount,exec /dev/mapper/ctmp
-sudo dpkg -i ../linux-image-$VERSION-grsec+_1.0+custom_*.deb
+sudo dpkg -i "../linux-image-$VERSION-grsec+_1.0+custom_"*.deb
 sudo mount -o remount /dev/mapper/ctmp

@@ -5,21 +5,23 @@
 #  fx-build -v                                  see the full gcc command line
 #  fx-build browser/components/preferences      only build a portion of the code
 
-OLD_CPU_GOVERNOR=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`
+OLD_CPU_GOVERNOR="$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)"
 if [ "$OLD_CPU_GOVERNOR" != "performance" ] ; then
   echo "WARNING: your main CPU is set to the $OLD_CPU_GOVERNOR governor, changing to the performance one."
   sudo cpufreq performance
 fi
 
 pushd ~/devel/mozilla-central
-export MOZCONFIG=`pwd`/.mozconfig-desktop
+MOZCONFIG="$(pwd)/.mozconfig-desktop"
+export MOZCONFIG
+# shellcheck disable=SC2048,SC2086
 ./mach --log-no-times build $*
 RET=$?
 popd
 
 if [ "$OLD_CPU_GOVERNOR" != "performance" ] ; then
   echo "Changing your CPU back to the $OLD_CPU_GOVERNOR governor."
-  sudo cpufreq $OLD_CPU_GOVERNOR
+  sudo cpufreq "$OLD_CPU_GOVERNOR"
 fi
 
 exit $RET

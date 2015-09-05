@@ -4,4 +4,4 @@ killall firefox
 killall xulrunner-stub
 killall firefox-bin
 killall plugin-container
-find $HOME/.mozilla/ \( -name "*.sqlite" \) -exec sqlite3 {} "vacuum" \;
+find "$HOME/.mozilla/" \( -name "*.sqlite" \) -exec sqlite3 {} "vacuum" \;

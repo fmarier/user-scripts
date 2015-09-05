@@ -2,4 +2,5 @@
 #
 # Run mplayer with all options that are useful when dealing with broken files
 
+# shellcheck disable=SC2086
 mplayer -ao sdl -nocache -nobps -ni -forceidx -mc 0 $1

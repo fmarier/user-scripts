@@ -4,7 +4,7 @@
 #
 
 if [ "z$1" = "z" ] ; then
-    echo "Usage: `basename $0` file1.png"
+    echo "Usage: $(basename "$0") file1.png"
     exit 1
 fi
 

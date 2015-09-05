@@ -17,12 +17,12 @@ dnssec-trigger-panel &
 redshift-gtk -l manual &
 
 # Vacuuming SQLite databases
-find $HOME/.mozilla/ \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
+find "$HOME/.mozilla/" \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
 
 # Cleanup unnecessary files
-rm -rf $HOME/.cache/chromium
-rm -rf $HOME/.thumbnails
-rm -rf $HOME/.local/share/Trash
+rm -rf "$HOME/.cache/chromium"
+rm -rf "$HOME/.thumbnails"
+rm -rf "$HOME/.local/share/Trash"
 
 # Graphical programs
 emacs --daemon

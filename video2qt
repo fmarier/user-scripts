@@ -5,7 +5,7 @@
 # Based on the mencoder manual:
 #   http://www.mplayerhq.hu/DOCS/HTML/en/menc-feat-quicktime-7.html
 
-appname="`basename $0`"
+appname="$(basename "$0")"
 orig_video="$1"
 final_video="$orig_video.mp4"
 
@@ -23,13 +23,13 @@ fi
 mencoder "$orig_video" -o /dev/null -ovc x264 -x264encopts pass=1:threads=auto:bitrate=900:bframes=1:me=umh:partitions=all:trellis=1:qp_step=4:qcomp=0.7:direct_pred=auto:keyint=300 -vf scale=-10:-1,harddup -oac faac -faacopts br=192:mpeg=4:object=2 -channels 2 -srate 48000 || exit 3
 
 # Second pass
-temp_avi="`mktemp -t ${appname}_temp_avi_XXXXXXXX`"
+temp_avi="$(mktemp -t "${appname}_temp_avi_XXXXXXXX")"
 mencoder "$orig_video" -o "$temp_avi" -ovc x264 -x264encopts pass=2:threads=auto:bitrate=900:bframes=1:me=umh:partitions=all:trellis=1:qp_step=4:qcomp=0.7:direct_pred=auto:keyint=300 -vf scale=-10:-1,harddup -oac faac -faacopts br=192:mpeg=4:object=2 -channels 2 -srate 48000 || exit 4
 rm -f divx2pass.log
 
 # Dump audio and video files
-temp_aac="`mktemp -t ${appname}_temp_aac_XXXXXXXX`"
-temp_h264="`mktemp -t ${appname}_temp_h264_XXXXXXXX`"
+temp_aac="$(mktemp -t "${appname}_temp_aac_XXXXXXXX")"
+temp_h264="$(mktemp -t "${appname}_temp_h264_XXXXXXXX")"
 mplayer "$temp_avi" -dumpaudio -dumpfile "$temp_aac" || exit 5
 mplayer "$temp_avi" -dumpvideo -dumpfile "$temp_h264" || exit 6
 

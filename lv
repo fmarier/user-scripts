@@ -2,11 +2,11 @@
 # Usage:
 #	lv work_report03
 
-filename=`basename $1 .tex`
+filename="$(basename "$1" .tex)"
 
 function cleanup {
-	mv -f $filename.ps $filename.aux $filename.bbl $filename.blg $filename.log $filename.dvi $filename.lof $filename.toc texput.log /tmp 2> /dev/null
-	echo `untex -a -e -m -o $filename.tex | wc -w` words
+	mv -f "$filename.ps" "$filename.aux" "$filename.bbl" "$filename.blg" "$filename.log" "$filename.dvi" "$filename.lof" "$filename.toc" texput.log /tmp 2> /dev/null
+	echo "$(untex -a -e -m -o "$filename.tex" | wc -w)" words
 }
 
 function terminate {
@@ -14,11 +14,11 @@ function terminate {
 	exit 1
 }
 
-latex $filename.tex || terminate
-bibtex $filename 
-latex $filename.tex || terminate # Second pass for references and table of contents
-latex $filename.tex || terminate # Third pass for bibliography
+latex "$filename.tex" || terminate
+bibtex "$filename"
+latex "$filename.tex" || terminate # Second pass for references and table of contents
+latex "$filename.tex" || terminate # Third pass for bibliography
 
-dvipdfm -z 9 -p `cat /etc/papersize` $filename.dvi
-evince $filename.pdf &
+dvipdfm -z 9 -p "$(cat /etc/papersize)" "$filename.dvi"
+evince "$filename.pdf" &
 cleanup

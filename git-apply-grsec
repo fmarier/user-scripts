@@ -14,7 +14,7 @@ elif [ ! -r ".config" ] ; then
 fi
 
 # Remove the last patch if necessary
-NEEDS_RESET="`git log --oneline | head -1 | grep 'Applied grsecurity' >/dev/null && echo yes`"
+NEEDS_RESET="$(git log --oneline | head -1 | grep 'Applied grsecurity' >/dev/null && echo yes)"
 if [ "z$NEEDS_RESET" = "zyes" ] ; then
         git reset --hard HEAD^
         git clean -f
@@ -22,8 +22,8 @@ if [ "z$NEEDS_RESET" = "zyes" ] ; then
 fi
 
 fakeroot make-kpkg clean
-(patch -p1 < $1) || (echo "Failed to apply patch" && exit 1)
+(patch -p1 < "$1") || (echo "Failed to apply patch" && exit 1)
 git add grsecurity/ include/linux/gr* localversion-grsec tools/
 git add include/linux/netfilter net/netfilter scripts/gcc-plugin.sh
 git add include/trace/events arch/x86/kernel
-git commit -a -m "Applied `basename $1`"
+git commit -a -m "Applied $(basename "$1")"

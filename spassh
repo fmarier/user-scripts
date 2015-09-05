@@ -8,13 +8,15 @@
 # NOTE: for the fwknop command to work, you must first configure it in ~/.fwknoprc
 
 # Extract the hostname from an scp destination
-hostname="`echo ${!#} | perl -pe 's/^([^@]*\@)?(.*)$/$2/'`"
+hostname="$(echo "${!#}" | perl -pe 's/^([^@]*\@)?(.*)$/$2/')"
 
-version=`fwknop -V | head -1 | cut -d'v' -f2 | cut -d'.' -f1`
+version="$(fwknop -V | head -1 | cut -d'v' -f2 | cut -d'.' -f1)"
 
 export http_proxy=""
 if [ "$version" = "1" ] ; then
-  fwknop --quiet --Last-host $hostname && ssh $*
+    # shellcheck disable=SC2048,SC2086
+    fwknop --quiet --Last-host "$hostname" && ssh $*
 else
-  fwknop -n $hostname && ssh $*
+    # shellcheck disable=SC2048,SC2086
+    fwknop -n "$hostname" && ssh $*
 fi

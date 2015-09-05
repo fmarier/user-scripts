@@ -17,8 +17,8 @@ fi
 PSFILE="$(mktemp calendar-XXXX.ps)"
 PDFFILE="$(mktemp -p. calendar-XXXX.pdf)"
 
-pcal -F 1 -m -o $PSFILE $MONTH $YEAR
-ps2pdf $PSFILE $PDFFILE
-rm -f $PSFILE
+pcal -F 1 -m -o "$PSFILE" "$MONTH" "$YEAR"
+ps2pdf "$PSFILE" "$PDFFILE"
+rm -f "$PSFILE"
 
-echo Generated $PDFFILE
+echo Generated "$PDFFILE"

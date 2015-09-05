@@ -3,17 +3,17 @@
 # Download the latest hint files for the upcoming Debian release
 
 OUTFILE='debian-release.hints'
-TMPFILE="`mktemp`"
-touch $TMPFILE
+TMPFILE="$(mktemp)"
+touch "$TMPFILE"
 
 for f in aba adeodato he joeyh luk madcoder neilm pkem rmurray vorlon zobel freeze freeze-exception ftpteam
 do
-	curl --silent --show-error --compressed http://release.debian.org/testing/hints/$f >> $TMPFILE
+	curl --silent --show-error --compressed "http://release.debian.org/testing/hints/$f" >> "$TMPFILE"
 done
 
-if [ ! -e $OUTFILE ]
+if [ ! -e "$OUTFILE" ]
 then
-	mv $TMPFILE $OUTFILE
+	mv "$TMPFILE" "$OUTFILE"
 	exit 0
 else
 	echo "$OUTFILE already exists."
