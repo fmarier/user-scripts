@@ -20,6 +20,7 @@ redshift-gtk -l manual &
 find "$HOME/.mozilla/" \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
 
 # Cleanup unnecessary files
+rm -f "$HOME/.config/autostart/redshift-gtk.desktop"
 rm -rf "$HOME/.cache/chromium"
 rm -rf "$HOME/.thumbnails"
 rm -rf "$HOME/.local/share/Trash"
