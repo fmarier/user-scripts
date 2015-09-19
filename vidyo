@@ -3,7 +3,7 @@ sudo -v || exit 1
 killall VidyoDesktop
 sudo rmmod xhci_hcd
 sudo modprobe xhci_hcd
-export PULSE_LATENCY_MSEC=60
+#export PULSE_LATENCY_MSEC=60
 
 OLD_CPU_GOVERNOR="$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)"
 if [ "$OLD_CPU_GOVERNOR" != "performance" ] ; then
@@ -11,7 +11,10 @@ if [ "$OLD_CPU_GOVERNOR" != "performance" ] ; then
     sudo cpufreq performance
 fi
 
-VidyoDesktop
+export VIDYO_AUDIO_FRAMEWORK=ALSA
+#/usr/bin/pulseaudio --kill
+pasuspender VidyoDesktop
+#/usr/bin/pulseaudio --start --log-target=syslog
 
 if [ "$OLD_CPU_GOVERNOR" != "performance" ] ; then
     echo "Changing your CPU back to the $OLD_CPU_GOVERNOR governor."
