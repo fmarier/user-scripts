@@ -15,7 +15,7 @@ pushd ~/devel/mozilla-central
 MOZCONFIG="$(pwd)/.mozconfig-desktop"
 export MOZCONFIG
 # shellcheck disable=SC2048,SC2086
-./mach --log-no-times build $*
+eatmydata ./mach --log-no-times build $*
 RET=$?
 popd
 
