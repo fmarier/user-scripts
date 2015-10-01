@@ -15,8 +15,8 @@ version="$(fwknop -V | head -1 | cut -d'v' -f2 | cut -d'.' -f1)"
 export http_proxy=""
 if [ "$version" = "1" ] ; then
     # shellcheck disable=SC2048,SC2086
-    fwknop --quiet --Last-host "$hostname" && ssh $*
+    fwknop --quiet --Last-host "$hostname" && ssh -4 $*
 else
     # shellcheck disable=SC2048,SC2086
-    fwknop -n "$hostname" && ssh $*
+    fwknop -n "$hostname" && ssh -4 $*
 fi
