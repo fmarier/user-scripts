@@ -3,7 +3,7 @@
 # Start my znc-based IRC bouncer before running irssi and prompt to
 # kill it afterwards.
 
-znc-on
+znc-on || exit 1
 irssi
 read -p "Terminate the bouncer? [y/N] " -n 1 -r
 echo
