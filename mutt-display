@@ -3,7 +3,7 @@
 use IPC::Open2;
 
 $HOME="/home/francois";
-$EXTERNAL_FILTER="t-prot -acelmtS -Mmutt --spass --pgp-move-vrf --pgp-short --ftr-ad --ftr-ml --diff -L$HOME/.t-prot/mlfooters -A$HOME/.t-prot/adfooters --max-lines 500";
+$EXTERNAL_FILTER="t-prot -acelmtS -Mmutt --spass --pgp-move-vrf --pgp-short --ftr-ad --ftr-ml --diff -L$HOME/.t-prot/mlfooters -A$HOME/.t-prot/adfooters --max-lines 1000";
 
 sub convert_date_to_local
 {
@@ -42,4 +42,5 @@ foreach (<>) {
 close WRITER;
 @text = <READER>;
 close READER;
+binmode(STDOUT, ":utf8");
 print join('', @text);
