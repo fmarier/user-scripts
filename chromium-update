@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# See https://dev.chromium.org/developers/how-tos/get-the-code
+
+if [ ! -e LICENSE.chromium_os ] ; then
+  echo "You must run this command from the top-level directory of the Chromium source repo."
+  exit 1
+fi
+
+git rebase-update
+gclient sync
