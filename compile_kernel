@@ -28,8 +28,8 @@ sudo -v
 sudo ionice -c3 fakeroot make-kpkg clean
 nice eatmydata fakeroot make-kpkg --revision=1.0+custom kernel_image &
 BACKGROUND_BUILD=$!
-sudo ionice -c3 -p $BACKGROUND_BUILD
-wait $BACKGROUND_BUILD || exit 1
+sudo ionice -c3 -p "$BACKGROUND_BUILD"
+wait "$BACKGROUND_BUILD" || exit 1
 
 # Install the package
 sudo mount -o remount,exec /dev/mapper/ctmp

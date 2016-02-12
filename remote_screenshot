@@ -23,7 +23,7 @@ stty echo
 OUTPUT_FILE="$(mktemp ./screenshotXXXXXXXX).jpg"
 rm "$(basename "$OUTPUT_FILE" .jpg)"
 #fwknop --quiet --Last-host "$TARGET_HOST"
-scp "$TARGET_HOST":"$SCREENSHOT_FILE" "$OUTPUT_FILE"
+scp "$TARGET_HOST:$SCREENSHOT_FILE" "$OUTPUT_FILE"
 
 # Delete screenshot from remote server
 #fwknop --quiet --Last-host "$TARGET_HOST"
