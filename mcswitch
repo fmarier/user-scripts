@@ -1,0 +1,23 @@
+#!/bin/sh
+
+TARGET="$1"
+
+if test "z$TARGET" = "z" ; then
+    echo "Usage: $0 (desktop|fennec)"
+    exit 1
+fi
+
+if ! test -e ".mozconfig-$TARGET" ; then
+    echo ".mozconfig-$TARGET not found"
+    exit 1
+fi
+
+if ! test -L .mozconfig ; then
+    echo ".mozconfig is not a symlink. I'm not touching it!"
+    exit 1
+fi
+
+
+rm .mozconfig
+ln -s .mozconfig-$1 .mozconfig
+ls -l --color .mozconfig
