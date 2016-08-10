@@ -11,11 +11,11 @@ if [ "$OLD_CPU_GOVERNOR" != "performance" ] ; then
     sudo cpufreq performance
 fi
 
-pushd ~/devel/mozilla-central
+pushd ~/devel/mozilla-unified
 MOZCONFIG="$(pwd)/.mozconfig-desktop"
 export MOZCONFIG
 # shellcheck disable=SC2048,SC2086
-eatmydata ./mach --log-no-times build $*
+eatmydata ionice nice ./mach --log-no-times build $*
 RET=$?
 popd
 
