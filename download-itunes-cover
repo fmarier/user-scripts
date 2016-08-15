@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# Based on https://feeding.cloud.geek.nz/posts/extracting-album-covers-from-the-itunes-store/
+
+URL="$1"
+if test "z$URL" = "z" ; then
+    echo "Usage: $0 <url>"
+    exit 1
+fi
+
+BASE_URL="$(echo $URL | sed -e 's/cover[0-9]*x[0-9]*.jpeg$/cover/')"
+
+test_size() {
+    size=$1
+    if curl --head --silent "${BASE_URL}${size}x${size}.jpeg" | grep --quiet "HTTP/1.1 404" ; then
+        false
+    else
+        true
+    fi
+}
+
+download_size() {
+    size=$1
+    output=$(mktemp XXXXX-cover.jpg)
+    echo "Downloading ${size}x${size} cover into $output"
+    curl --output "$output" "${BASE_URL}${size}x${size}.jpeg"
+}
+
+SIZES="1400 1200 600 340 170 100 64"
+
+for s in $SIZES ; do
+    if test_size "$s" ; then
+        download_size "$s"
+        exit $?
+    fi
+done
