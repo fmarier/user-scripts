@@ -12,4 +12,4 @@ hostname="$(echo "${!#}" | perl -pe 's/^([^@]*\@)?(.*)$/$2/')"
 
 export http_proxy=""
 # shellcheck disable=SC2048,SC2086
-fwknop -n "$hostname" && ssh -4 $*
+fwknop -w /usr/bin/wget -n "$hostname" && ssh -4 $*
