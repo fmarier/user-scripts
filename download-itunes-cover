@@ -8,11 +8,12 @@ if test "z$URL" = "z" ; then
     exit 1
 fi
 
-BASE_URL="$(echo $URL | sed -e 's/cover[0-9]*x[0-9]*.jpeg$/cover/')"
+BASE_URL="$(echo $URL | sed -e 's/[0-9]*x[0-9]*[^.]*\.[a-z]*$//')"
+SUFFIX="$(echo $URL | sed -e 's/^.*[0-9]*x[0-9]*\([^.]*\)\.\([a-z]*\)$/\1.\2/')"
 
 test_size() {
     size=$1
-    if curl --head --silent "${BASE_URL}${size}x${size}.jpeg" | grep --quiet "HTTP/1.1 404" ; then
+    if curl --head --silent "${BASE_URL}${size}x${size}${SUFFIX}" | grep --quiet "HTTP/1.1 404" ; then
         false
     else
         true
@@ -23,7 +24,7 @@ download_size() {
     size=$1
     output=$(mktemp XXXXX-cover.jpg)
     echo "Downloading ${size}x${size} cover into $output"
-    curl --output "$output" "${BASE_URL}${size}x${size}.jpeg"
+    curl --output "$output" "${BASE_URL}${size}x${size}${SUFFIX}"
 }
 
 SIZES="1400 1200 600 340 170 100 64"
