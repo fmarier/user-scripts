@@ -10,7 +10,7 @@ gnome-keyring-daemon
 gnome-screensaver &
 nm-applet &
 xautolock -time 30 -locker "gnome-screensaver-command --lock" &
-git annex assistant --autostart
+syncthing -no-browser &
 i3-battery-indicator &
 xset dpms 1800 3600 3630
 dnssec-trigger-panel &
