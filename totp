@@ -1,0 +1,41 @@
+#!/bin/bash
+# Generate TOTP codes using oathtool
+#
+# Requires the "oathtool" package.
+#
+# To extract the base32 key out of a QR code, install the "zbar-tools"
+# package and use "zbarimg qr.png".
+#
+# Then put all of the keys in the ~/.totp/ directory.
+#
+# based on https://superuser.com/questions/462478/is-there-a-google-authenticator-desktop-client/826339#826339
+
+# Create the key directory if it doesn't exist
+KEYDIR="$HOME/.totp"
+if [ ! -e "$KEYDIR" ] ; then
+        mkdir "$KEYDIR"
+        chmod go-rwx "$KEYDIR"
+fi
+
+# Check the permissions on the .totp directory
+if [ -z "$(find "$KEYDIR" -type d -perm 0700)" ]; then
+        echo "The permissions of the $KEYDIR directory must be exactly 0700"
+        exit 1
+fi
+
+if [ "z$1" = "z" ] ; then
+        echo "Usage: $0 provider"
+        exit 2
+fi
+
+PROVIDER="$1"
+KEY="$KEYDIR/$PROVIDER"
+
+if [ ! -r "$KEY" ] ; then
+        echo "Key '$KEY' not found"
+        exit 3
+fi
+
+CODE="$(/usr/bin/oathtool --totp --base32 "$(<"$KEY")")"
+echo -n "$CODE" | xsel --clipboard
+echo "$CODE"
