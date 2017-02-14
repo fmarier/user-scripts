@@ -25,8 +25,7 @@ function killNagBar {
     fi
 }
 
-# shellcheck disable=SC2078
-while [ true ]; do
+while true; do
 
     killNagBar
 

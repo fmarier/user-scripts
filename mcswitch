@@ -19,5 +19,5 @@ fi
 
 
 rm .mozconfig
-ln -s .mozconfig-$1 .mozconfig
+ln -s ".mozconfig-$1" .mozconfig
 ls -l --color .mozconfig
