@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Script to download the latest grsecurity test patch and verify its GPG signature 
+# Script to download the latest grsecurity test patch and verify its GPG signature
 #
 # Usage: grsecurity_download (grsecurity|pax|gradm)
 

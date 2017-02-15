@@ -2,7 +2,7 @@
 #
 # Helper for mutt to remember mails in Emacs' Org mode
 #
-# Copyright: © 2009-2010 Stefano Zacchiroli <zack@upsilon.cc> 
+# Copyright: © 2009-2010 Stefano Zacchiroli <zack@upsilon.cc>
 #              2012 Francois Marier <francois@fmarier.org>
 #
 # Taken from:
