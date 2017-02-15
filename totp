@@ -37,5 +37,7 @@ if [ ! -r "$KEY" ] ; then
 fi
 
 CODE="$(/usr/bin/oathtool --totp --base32 "$(<"$KEY")")"
-echo -n "$CODE" | xsel --clipboard
+if [ "z$DISPLAY" != "z" ] ; then
+        echo -n "$CODE" | xsel --clipboard
+fi
 echo "$CODE"
