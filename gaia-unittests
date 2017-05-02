@@ -1,5 +1,0 @@
-#!/bin/bash
-export FIREFOX=~/devel/mozilla-central/obj-x86_64-unknown-linux-gnu/dist/bin/firefox
-pushd ~/devel/gaia
-bin/gaia-test
-popd

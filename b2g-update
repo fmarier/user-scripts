@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# https://developer.mozilla.org/en-US/Firefox_OS/Building#Updating_your_code
-git pull
-repo sync -d
