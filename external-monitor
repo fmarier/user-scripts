@@ -1,5 +1,5 @@
 #!/bin/sh
-if xrandr | grep eDP1 > /dev/null ; then
+if xrandr -d :0.0 | grep eDP1 > /dev/null ; then
     xrandr -d :0.0 --output DP2 --auto
     xrandr -d :0.0 --output eDP1 --auto
     xrandr -d :0.0 --output DP2 --left-of eDP1
