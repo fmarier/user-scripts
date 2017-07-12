@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if /usr/bin/lsusb | grep 17ef:1010 > /dev/null ; then
+if /usr/bin/lsusb | grep --quiet 17ef:1010; then
     pacmd set-sink-port alsa_output.pci-0000_00_1b.0.analog-stereo analog-output
 else
     pacmd set-sink-port alsa_output.pci-0000_00_1b.0.analog-stereo analog-output-speaker
