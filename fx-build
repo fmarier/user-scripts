@@ -15,7 +15,7 @@ pushd ~/devel/mozilla-unified
 MOZCONFIG="$(pwd)/.mozconfig-desktop"
 export MOZCONFIG
 # shellcheck disable=SC2048,SC2086
-eatmydata ionice nice ./mach --log-no-times build $*
+eatmydata ionice --classdata 7 nice --adjustment=19 ./mach --log-no-times build $*
 RET=$?
 popd
 
