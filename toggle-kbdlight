@@ -1,0 +1,12 @@
+#!/bin/bash
+
+LIGHTDEV="/proc/acpi/ibm/kbdlight"
+CURRENT="$(grep '^status:' < $LIGHTDEV | cut -f3)"
+
+if [ "$CURRENT" = "0" ] ; then
+    echo "1" | sudo /usr/bin/tee "$LIGHTDEV" > /dev/null
+elif [ "$CURRENT" = "1" ] ; then
+    echo "2" | sudo /usr/bin/tee "$LIGHTDEV" > /dev/null
+else
+    echo "0" | sudo /usr/bin/tee "$LIGHTDEV" > /dev/null
+fi
