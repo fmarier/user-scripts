@@ -15,6 +15,13 @@ pushd ~/devel/mozilla-unified
 # shellcheck disable=SC2048,SC2086
 eatmydata ionice --classdata 7 nice --adjustment=19 ./mach --log-no-times build $*
 RET=$?
+
+# Generate an APK if building for Android
+if [ "$RET" -eq 0 ] && grep -q application=mobile/android .mozconfig ; then
+    # shellcheck disable=SC2048,SC2086
+    eatmydata ionice --classdata 7 nice --adjustment=19 ./mach --log-no-times package
+    RET=$?
+fi
 popd
 
 if [ "$OLD_CPU_GOVERNOR" != "performance" ] ; then
