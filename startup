@@ -15,6 +15,8 @@ i3-battery-indicator &
 xset dpms 1800 3600 3630
 dnssec-trigger-panel &
 redshift-gtk -l manual &
+usbguard-applet-qt &
+dunst &
 
 # Vacuuming SQLite databases
 find "$HOME/.mozilla/" \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
