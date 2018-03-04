@@ -1,0 +1,28 @@
+#!/bin/bash
+
+MPC="/usr/bin/mpc"
+FADEOUTTIME=20
+ORIG_VOLUME=$($MPC volume | sed -e 's/[^0-9]*\([0-9]*\).*/\1/')
+
+V=$ORIG_VOLUME
+STEP=$((V / FADEOUTTIME))
+if [ $V -lt 0 ]; then
+    V=0
+fi
+if [ $V -gt 100 ]; then
+    V=100
+fi
+if [ $STEP -lt 1 ]; then
+    STEP=1
+fi
+
+$MPC volume $V > /dev/null
+while [ $V -gt 0 ] ; do
+    $MPC --quiet volume $V
+    V=$((V - STEP))
+    sleep 1
+done
+
+$MPC --quiet pause
+$MPC --quiet volume "$ORIG_VOLUME"
+$MPC --quiet stop
