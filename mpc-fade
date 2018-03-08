@@ -4,6 +4,11 @@ MPC="/usr/bin/mpc"
 FADEOUTTIME=20
 ORIG_VOLUME=$($MPC volume | sed -e 's/[^0-9]*\([0-9]*\).*/\1/')
 
+if [ -z "$ORIG_VOLUME" ]; then
+    # Not currently playing music, nothing to do here.
+    exit 0
+fi
+
 V=$ORIG_VOLUME
 STEP=$((V / FADEOUTTIME))
 if [ $V -lt 0 ]; then
