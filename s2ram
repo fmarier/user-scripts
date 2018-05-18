@@ -8,5 +8,8 @@ xsel -b -c
 # Kill sudo session
 sudo -k
 
+# Flush akregator data to disk
+dbus-send --session --dest=org.kde.akregator --type=method_call /Akregator  org.kde.akregator.part.saveSettings
+
 sync
 systemctl suspend
