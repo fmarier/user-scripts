@@ -20,6 +20,7 @@ dnssec-trigger-panel &
 redshift-gtk -l manual &
 usbguard-applet-qt &
 dunst &
+~/.fehbg
 
 # Vacuuming SQLite databases
 find "$HOME/.mozilla/" \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;

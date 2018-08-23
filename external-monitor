@@ -15,3 +15,4 @@ else
     xrandr -d :1.0 --output DP-3-1 --left-of eDP-1
     workrave --display=:1.0 &
 fi
+~/.fehbg
