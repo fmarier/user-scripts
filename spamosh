@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# spasmosh: wrapper around the mosh command for hosts which use single packet authentication
+#
+# You can protect the ssh server using fwknop, but the mosh UDP port must be forwarded to
+# the machine that is running the ssh server you're trying to connect to.
+#
+# External dependencies:
+# - perl
+#
+# NOTE: for the fwknop command to work, you must first configure it in ~/.fwknoprc
+
+PORT="9000" # must be forwarded on the gateway
+
+# Extract the hostname from an scp destination
+hostname="$(echo "${!#}" | perl -pe 's/^([^@]*\@)?(.*)$/$2/')"
+remoteip="$(dig +short A "$hostname" | tail -1)"
+
+export http_proxy=""
+
+# shellcheck disable=SC2048,SC2086
+fwknop -n "$hostname" || exit 1
+
+key="$(ssh -4 -t "$hostname" mosh-server new -p \"$PORT\" | grep '^MOSH' | cut -s -d' ' -f4 | tr -d '\r')"
+MOSH_KEY="$key" exec mosh-client "$remoteip" "$PORT"
