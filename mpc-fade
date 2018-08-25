@@ -9,15 +9,15 @@ if [ -z "$ORIG_VOLUME" ]; then
     exit 0
 fi
 
-V=$ORIG_VOLUME
-STEP=$((V / FADEOUTTIME))
-if [ $V -lt 0 ]; then
+V="$ORIG_VOLUME"
+STEP="$((V / FADEOUTTIME))"
+if [ "$V" -lt 0 ]; then
     V=0
 fi
-if [ $V -gt 100 ]; then
+if [ "$V" -gt 100 ]; then
     V=100
 fi
-if [ $STEP -lt 1 ]; then
+if [ "$STEP" -lt 1 ]; then
     STEP=1
 fi
 
