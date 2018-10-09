@@ -6,21 +6,24 @@
 # Needed by workrave
 mkdir -p /dev/shm/workrave-francois
 
+# Xorg tweaks
+xautolock -time 30 -locker "gnome-screensaver-command --lock" &
+xset dpms 1800 3600 3630
+setxkbmap -option caps:ctrl_modifier
+
 # Desktop environment
 gnome-settings-daemon &
 gnome-keyring-daemon
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 gnome-screensaver &
 nm-applet &
-xautolock -time 30 -locker "gnome-screensaver-command --lock" &
-syncthing -no-browser &
 i3-battery-indicator &
-xset dpms 1800 3600 3630
-dnssec-trigger-panel &
 redshift-gtk -l manual &
 usbguard-applet-qt &
 dunst &
 ~/.fehbg
+/usr/bin/aa-notify -p
+/usr/bin/pasystray &
 
 # Vacuuming SQLite databases
 find "$HOME/.mozilla/" \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
@@ -31,6 +34,7 @@ rm -rf "$HOME/.cache/chromium"
 rm -rf "$HOME/.thumbnails"
 rm -rf "$HOME/.local/share/Trash"
 
-# Graphical programs
+# Applications
+syncthing -no-browser &
 emacs --daemon
 ionice -n7 akregator &
