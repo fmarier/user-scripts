@@ -1,0 +1,31 @@
+#!/bin/sh
+
+if [ "z$1" = "z" ] ; then
+    echo "Usage: $0 file.js"
+    exit 1
+fi
+
+if [ ! -e "$1" ] ; then
+    echo "$1: File not found"
+    exit 1
+fi
+
+#echo "sha-256:"
+#cat $1 | openssl dgst -sha256 -binary | openssl enc -base64 -A | sed -e 's/+/-/g' -e 's/\//_/g' -e 's/=*$//g'
+#echo
+#echo "sha-384:"
+#cat $1 | openssl dgst -sha384 -binary | openssl enc -base64 -A | sed -e 's/+/-/g' -e 's/\//_/g' -e 's/=*$//g'
+#echo
+#echo "sha-512:"
+#cat $1 | openssl dgst -sha512 -binary | openssl enc -base64 -A | sed -e 's/+/-/g' -e 's/\//_/g' -e 's/=*$//g'
+#echo
+#echo "-------------------------------------------------"
+echo "sha256:"
+openssl dgst -sha256 -binary "$1" | openssl base64 -A
+echo
+echo "sha384:"
+openssl dgst -sha384 -binary "$1" | openssl base64 -A
+echo
+echo "sha512:"
+openssl dgst -sha512 -binary "$1" | openssl base64 -A
+echo
