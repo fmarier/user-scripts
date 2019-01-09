@@ -12,7 +12,7 @@ xset dpms 1800 3600 3630
 setxkbmap -option caps:ctrl_modifier
 
 # Desktop environment
-gnome-settings-daemon &
+/usr/lib/gnome-settings-daemon/gsd-xsettings &
 gnome-keyring-daemon
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 gnome-screensaver &
