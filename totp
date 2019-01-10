@@ -28,16 +28,26 @@ if [ "z$1" = "z" ] ; then
         exit 2
 fi
 
+# Mount the LUKS partition
+cryptmount totp || exit 4
+
 PROVIDER="$1"
 KEY="$KEYDIR/$PROVIDER"
 
-if [ ! -r "$KEY" ] ; then
+FOUND=
+if [ -r "$KEY" ] ; then
+        FOUND="yes"
+        CODE="$(/usr/bin/oathtool --totp --base32 "$(<"$KEY")")"
+        if [ "z$DISPLAY" != "z" ] ; then
+                echo -n "$CODE" | xsel --clipboard
+        fi
+        echo "$CODE"
+fi
+
+# Unmount the LUKS partition
+cryptmount -u totp
+
+if [ "$FOUND" != "yes" ] ; then
         echo "Key '$KEY' not found"
         exit 3
 fi
-
-CODE="$(/usr/bin/oathtool --totp --base32 "$(<"$KEY")")"
-if [ "z$DISPLAY" != "z" ] ; then
-        echo -n "$CODE" | xsel --clipboard
-fi
-echo "$CODE"
