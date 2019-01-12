@@ -1,9 +1,7 @@
 #!/bin/sh
-xrandr -d :1.0 --output DP-1 --auto
-xrandr -d :1.0 --output eDP-1 --auto
-xrandr -d :1.0 --output HDMI-1 --auto
-xrandr -d :1.0 --output HDMI-1 --above eDP-1
-xrandr -d :1.0 --output DP-1 --left-of eDP-1
+xrandr -d :0 --output eDP-1-1 --auto
+xrandr -d :0 --output HDMI-0 --auto
+xrandr -d :0 --output HDMI-0 --left-of eDP-1-1
 ~/.fehbg
 
 # Dirty hack to fix capslock since it seems to get lost often
