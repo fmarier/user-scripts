@@ -11,5 +11,9 @@ else
 fi
 ~/.fehbg
 
+# Restart workrave so that it picks up the primary monitor
+killall workrave
+workrave &
+
 # Dirty hack to fix capslock since it seems to get lost often
 setxkbmap -option caps:ctrl_modifier
