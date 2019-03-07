@@ -4,10 +4,12 @@ if xrandr | grep --silent LVDS-1 ; then
         xrandr -d :1 --output DP-3 --auto
         xrandr -d :1 --output HDMI-3 --auto --primary
         xrandr -d :1 --output HDMI-3 --left-of LVDS-1
-else
+elif xrandr | grep --silent eDP-1-1 ; then
         xrandr -d :0 --output eDP-1-1 --auto
         xrandr -d :0 --output HDMI-0 --auto --primary
         xrandr -d :0 --output HDMI-0 --left-of eDP-1-1
+else
+        xrandr -d :0 --output eDP-1 --auto --primary
 fi
 ~/.fehbg
 
