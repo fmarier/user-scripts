@@ -10,8 +10,13 @@ if xrandr | grep --silent LVDS-1 ; then
         xrandr -d :1 --output DP-3 --auto
         xrandr -d :1 --output HDMI-3 --left-of LVDS-1
 elif xrandr | grep --silent eDP-1-1 ; then
-        xrandr -d :0 --output eDP-1-1 --auto
-        xrandr -d :0 --output HDMI-0 --auto --primary
+        if xrandr | grep --silent "HDMI-0 disconnected" ; then
+                xrandr -d :0 --output HDMI-0 --auto
+                xrandr -d :0 --output eDP-1-1 --auto --primary
+        else
+                xrandr -d :0 --output eDP-1-1 --auto
+                xrandr -d :0 --output HDMI-0 --auto --primary
+        fi
         xrandr -d :0 --output HDMI-0 --left-of eDP-1-1
 else
         xrandr -d :0 --output eDP-1 --auto --primary
