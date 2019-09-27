@@ -12,6 +12,7 @@ xset s blank -dpms
 setxkbmap -option caps:ctrl_modifier
 
 # Desktop environment
+/usr/bin/systemctl --user import-environment DISPLAY
 /usr/lib/gnome-settings-daemon/gsd-xsettings &
 gnome-keyring-daemon
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
@@ -20,7 +21,7 @@ nm-applet &
 i3-battery-indicator &
 redshift-gtk -l manual &
 usbguard-applet-qt &
-dunst &
+/usr/bin/systemctl status --user dunst
 ~/.fehbg
 /usr/bin/aa-notify -p
 /usr/bin/pasystray &
