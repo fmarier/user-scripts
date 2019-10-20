@@ -1,0 +1,7 @@
+#!/bin/bash
+ALERTS_SEEN="${HOME}/.cache/wnpp-alerts-seen"
+if [ -e $ALERTS_SEEN ] ; then
+    wnpp-alert 2> /dev/null | grep -v "$(cat $ALERTS_SEEN)" | tee -a $ALERTS_SEEN
+else
+    wnpp-alert | tee $ALERTS_SEEN
+fi
