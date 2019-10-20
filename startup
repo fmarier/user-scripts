@@ -21,7 +21,7 @@ nm-applet &
 i3-battery-indicator &
 redshift-gtk -l manual &
 usbguard-applet-qt &
-/usr/bin/systemctl status --user dunst
+/usr/bin/systemctl start --user dunst
 ~/.fehbg
 /usr/bin/aa-notify -p
 /usr/bin/pasystray &
