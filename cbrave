@@ -1,0 +1,5 @@
+#!/bin/sh
+# from http://www.enricozini.org/blog/2016/debian/simple-one-liner-to-save-battery-life-and-reduce-system-latency/
+
+pkill -CONT brave
+pkill -CONT brave-browser
