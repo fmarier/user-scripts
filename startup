@@ -20,7 +20,6 @@ gnome-screensaver &
 nm-applet &
 i3-battery-indicator &
 redshift-gtk -l manual &
-usbguard-applet-qt &
 /usr/bin/systemctl start --user dunst
 ~/.fehbg
 /usr/bin/aa-notify -p
