@@ -36,5 +36,5 @@ rm -rf "$HOME/.local/share/Trash"
 
 # Applications
 syncthing-gtk --minimized &
-emacs --daemon
+emacs --daemon --with-x-toolkit=lucid
 ionice -n7 akregator &
