@@ -13,12 +13,12 @@ setxkbmap -option caps:ctrl_modifier
 
 # Desktop environment
 /usr/bin/systemctl --user import-environment DISPLAY
-/usr/lib/gnome-settings-daemon/gsd-xsettings &
+/usr/libexec/gsd-xsettings &
 gnome-keyring-daemon
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 gnome-screensaver &
 nm-applet &
-i3-battery-indicator &
+/home/francois/devel/remote/user-scripts/i3-battery-indicator &
 redshift-gtk -l manual &
 /usr/bin/systemctl start --user dunst
 ~/.fehbg
