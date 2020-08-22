@@ -35,6 +35,5 @@ rm -rf "$HOME/.thumbnails"
 rm -rf "$HOME/.local/share/Trash"
 
 # Applications
-syncthing-gtk --minimized &
 emacs --daemon
 ionice -n7 akregator &
