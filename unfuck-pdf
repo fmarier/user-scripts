@@ -1,0 +1,2 @@
+#!/bin/sh
+pdf2djvu -d 1200 "$1" > "$1.djvu"
