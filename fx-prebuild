@@ -8,8 +8,8 @@ then
     exit 1
 fi
 
-pushd /var/cache/mozilla/mozilla-central > /dev/null
+pushd /var/cache/mozilla/mozilla-central > /dev/null || exit
 nocache ionice -n7 nice hg pull --update --quiet
 nocache ionice -n7 nice ./mach clobber > /dev/null
 nocache ionice -n7 nice ./mach build > /dev/null
-popd > /dev/null
+popd > /dev/null || exit

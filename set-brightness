@@ -6,10 +6,13 @@ esac
 
 dev="/sys/class/backlight/intel_backlight"
 max=$(cat "$dev/max_brightness")
+# shellcheck disable=SC2034
 cur=$(cat "$dev/brightness")
-step=$(($max / 10))
+# shellcheck disable=SC2034
+step=$((max / 10))
 
-brightness=$(($cur $1 $step))
+# shellcheck disable=SC1102,SC2086
+brightness=$((cur $1 step))
 
 if [ "$brightness" -lt 0 ] ; then
     brightness=0

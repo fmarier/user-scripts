@@ -11,7 +11,7 @@ if [ "$OLD_CPU_GOVERNOR" != "performance" ] ; then
     sudo cpufreq performance
 fi
 
-pushd ~/devel/mozilla-unified
+pushd ~/devel/mozilla-unified || exit
 # shellcheck disable=SC2048,SC2086
 eatmydata ionice --classdata 7 nice --adjustment=19 ./mach --log-no-times build $*
 RET=$?
@@ -22,7 +22,7 @@ if [ "$RET" -eq 0 ] && grep -q application=mobile/android .mozconfig ; then
     eatmydata ionice --classdata 7 nice --adjustment=19 ./mach --log-no-times package
     RET=$?
 fi
-popd
+popd || exit
 
 if [ "$OLD_CPU_GOVERNOR" != "performance" ] ; then
     echo "Changing your CPU back to the $OLD_CPU_GOVERNOR governor."

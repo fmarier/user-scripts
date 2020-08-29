@@ -18,6 +18,7 @@ function killNagBar {
     if [[ $NAGBAR_PID -ne 0 ]]; then
         # shellcheck disable=SC2009
         ps -p "$NAGBAR_PID" | grep "i3-nagbar"
+        # shellcheck disable=SC2181
         if [[ $? -eq 0 ]]; then
             kill "$NAGBAR_PID"
         fi
