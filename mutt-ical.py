@@ -136,6 +136,18 @@ def display(ical):
         attendees = ical.vevent.contents['attendee']
     else:
         attendees = ""
+    if 'dtstart' in ical.vevent.contents:
+        starts = ical.vevent.contents['dtstart']
+    else:
+        starts = ""
+    if 'dtend' in ical.vevent.contents:
+        ends = ical.vevent.contents['dtend']
+    else:
+        ends = ""
+    if 'location' in ical.vevent.contents:
+        locations = ical.vevent.contents['location']
+    else:
+        locations = ""
     sys.stdout.write("From:\t" + sender + "\n")
     sys.stdout.write("Title:\t" + summary + "\n")
     sys.stdout.write("To:\t")
@@ -147,6 +159,17 @@ def display(ical):
                 sys.stdout.write(attendee.CN_param + " <" + attendee.value.split(':')[1] + ">, ") #workaround for MS
             except:
                 sys.stdout.write(attendee.value.split(':')[1] + " <" + attendee.value.split(':')[1] + ">, ") #workaround for 'mailto:' in email
+    sys.stdout.write("\n")
+    sys.stdout.write("Time:\t")
+    for start in starts:
+        sys.stdout.write(start.value.astimezone(tz=None).strftime("%Y-%m-%d %H:%M %z") + " ")
+    sys.stdout.write("to ")
+    for end in ends:
+        sys.stdout.write(end.value.astimezone(tz=None).strftime("%Y-%m-%d %H:%M %z") + " ")
+    sys.stdout.write("\n")
+    sys.stdout.write("Location:\t")
+    for location in locations:
+        sys.stdout.write(location.value + " ")
     sys.stdout.write("\n\n")
     sys.stdout.write(description + "\n")
 
