@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# FIXME: have this run automatically
-# http://www.enricozini.org/blog/2018/debian/starting-user-software
-
 # Needed by workrave
 mkdir -p /dev/shm/workrave-francois
 
