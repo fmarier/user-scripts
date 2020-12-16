@@ -16,7 +16,6 @@ gnome-keyring-daemon
 gnome-screensaver &
 nm-applet &
 /home/francois/devel/remote/user-scripts/i3-battery-indicator &
-redshift-gtk -l manual &
 /usr/bin/systemctl start --user dunst
 ~/.fehbg
 /usr/bin/aa-notify -p
