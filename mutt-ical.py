@@ -6,8 +6,6 @@ This script is meant as a simple way to reply to ical invitations from mutt.
 See README for instructions and LICENSE for licensing information.
 """
 
-from __future__ import with_statement
-
 __author__="Martin Sander"
 __license__="MIT"
 
@@ -61,7 +59,7 @@ def get_answer(invitation):
 
     # just copy from invitation
     #for i in ["uid", "summary", "dtstart", "dtend", "organizer"]:
-	# There's a problem serializing TZ info in Python, temp fix
+    # There's a problem serializing TZ info in Python, temp fix
     for i in ["uid", "summary", "organizer"]:
         if i in invitation.vevent.contents:
             ans.vevent.add( invitation.vevent.contents[i][0] )
@@ -91,7 +89,7 @@ def get_mutt_command(ical, email_address, accept_decline, icsfile):
     summary = ical.vevent.contents['summary'][0].value
     command = ["mutt", "-a", icsfile,
             "-s", "'%s: %s'" % (accept_decline, summary), "--", sender]
-            #Uncomment the below line, and move it above the -s line to enable the wrapper
+    #Uncomment the below line, and move it above the -s line to enable the wrapper
             #"-e", 'set sendmail=\'ical_reply_sendmail_wrapper.sh\'',
     return command
 
@@ -117,7 +115,7 @@ def openics(invitation_file):
                 invitation = vobject.readOne(f, ignoreUnreadable=True)
         except AttributeError:
             invitation = vobject.readOne(f, ignoreUnreadable=True)
-        return invitation
+    return invitation
 
 def display(ical):
     summary = ical.vevent.contents['summary'][0].value
@@ -183,7 +181,6 @@ if __name__=="__main__":
         sys.exit(1)
 
     invitation = openics(args[0])
-    #print(invitation)
     display(invitation)
 
     for opt,arg in opts:
