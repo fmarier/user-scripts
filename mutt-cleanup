@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/find "$HOME/Mail/tmp/" -type f -mtime +60 -delete
