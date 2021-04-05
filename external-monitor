@@ -1,5 +1,6 @@
 #!/bin/sh
 if xrandr | grep --silent LVDS-1 ; then
+        # ThinkPad
         if xrandr | grep --silent "HDMI-3 disconnected" ; then
                 xrandr -d :1 --output LVDS-1 --auto --primary
                 xrandr -d :1 --output HDMI-3 --auto
@@ -8,8 +9,9 @@ if xrandr | grep --silent LVDS-1 ; then
                 xrandr -d :1 --output HDMI-3 --auto --primary
         fi
         xrandr -d :1 --output DP-3 --auto
-        xrandr -d :1 --output HDMI-3 --left-of LVDS-1
+        xrandr -d :1 --output HDMI-3 --right-of LVDS-1
 elif xrandr | grep --silent eDP-1-1 ; then
+        # System76
         if xrandr | grep --silent "DP-1 disconnected" ; then
                 xrandr -d :1 --output DP-1 --auto
                 xrandr -d :1 --output eDP-1-1 --auto --primary
