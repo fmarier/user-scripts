@@ -21,6 +21,7 @@ nm-applet &
 /usr/bin/aa-notify -p
 /usr/bin/pasystray &
 /usr/bin/smart-notifier &
+/usr/libexec/usbauth-notifier/usbauth-notifier &
 
 # Vacuuming SQLite databases
 find "$HOME/.mozilla/" \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
