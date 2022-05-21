@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Get rid of bt_usb
+rfkill block bluetooth
+
+# Turn off unnecessary network interfaces (i.e. all but wifi)
+ip link set br-999d1b277ac3 down
+ip link set enp4s0 down
+ip link set docker0 down
+
+# Turn off unnecessary services that may draw power
+systemctl stop docker.service docker.socket lxc.service lxcfs.service lxc-net.service code42.service 
+
+# powertop tunables
+echo 'min_power' > '/sys/class/scsi_host/host0/link_power_management_policy'
+echo 'min_power' > '/sys/class/scsi_host/host1/link_power_management_policy'
+echo 'min_power' > '/sys/class/scsi_host/host2/link_power_management_policy'
+echo 'min_power' > '/sys/class/scsi_host/host3/link_power_management_policy'
+echo 'min_power' > '/sys/class/scsi_host/host4/link_power_management_policy'
+echo 'auto' > '/sys/bus/pci/devices/0000:00:17.0/ata1/power/control'
+echo 'auto' > '/sys/bus/pci/devices/0000:00:17.0/ata2/power/control'
+echo 'auto' > '/sys/bus/pci/devices/0000:00:17.0/ata3/power/control'
+echo 'auto' > '/sys/bus/pci/devices/0000:00:17.0/ata4/power/control'
+echo 'auto' > '/sys/bus/pci/devices/0000:00:17.0/ata5/power/control'
+echo 'auto' > '/sys/bus/i2c/devices/i2c-6/device/power/control' # NVIDIA GPU
+echo '1500' > '/proc/sys/vm/dirty_writeback_centisecs'
+echo 'auto' > '/sys/block/sda/device/power/control'
+# TODO: echo 'auto' > '/sys/bus/usb/devices/1-2/power/control' # One for each USB device
