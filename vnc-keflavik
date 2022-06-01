@@ -1,2 +1,2 @@
 #!/bin/sh
-ssvncviewer -compresslevel 9 -quality 3 -bgr233 -encodings zrle -use64 -scale 1920x1000 -ycrop 1080 localhost:5901
+ssvncviewer -compresslevel 9 -quality 3 -bgr233 -encodings zrle -scale 1920x1000 -ycrop 1080 localhost:5901
