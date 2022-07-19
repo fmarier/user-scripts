@@ -23,7 +23,10 @@ elif xrandr | grep --silent eDP-1-1 ; then
 else
         xrandr -d :0 --output eDP-1 --auto --primary
 fi
-~/.fehbg
+
+if test -x ~/.fehbg ; then
+        ~/.fehbg
+fi
 
 # Restart workrave so that it picks up the primary monitor
 killall workrave
