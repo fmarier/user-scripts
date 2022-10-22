@@ -10,6 +10,16 @@ if xrandr | grep --silent LVDS-1 ; then
         fi
         xrandr -d :1 --output DP-3 --auto
         xrandr -d :1 --output HDMI-3 --right-of LVDS-1
+elif xrandr | grep --silent eDP-1 ; then
+        # System76
+        if xrandr | grep --silent "HDMI-1 disconnected" ; then
+                xrandr -d :1 --output HDMI-1 --auto
+                xrandr -d :1 --output eDP-1 --auto --primary
+        else
+                xrandr -d :1 --output eDP-1 --auto
+                xrandr -d :1 --output HDMI-1 --auto --primary
+        fi
+        xrandr -d :1 --output HDMI-1 --right-of eDP-1
 elif xrandr | grep --silent eDP-1-1 ; then
         # System76
         if xrandr | grep --silent "DP-1 disconnected" ; then
@@ -21,7 +31,7 @@ elif xrandr | grep --silent eDP-1-1 ; then
         fi
         xrandr -d :1 --output DP-1 --right-of eDP-1-1
 else
-        xrandr -d :0 --output eDP-1 --auto --primary
+        echo "Unsupported configuration"
 fi
 
 if test -x ~/.fehbg ; then
