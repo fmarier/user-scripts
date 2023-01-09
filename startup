@@ -11,7 +11,7 @@ setxkbmap -option caps:ctrl_modifier
 # Desktop environment
 /usr/bin/systemctl --user import-environment DISPLAY
 /usr/libexec/gsd-xsettings &
-gnome-keyring-daemon
+/usr/bin/systemctl start --user ssh-agent.service
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 gnome-screensaver &
 nm-applet &
