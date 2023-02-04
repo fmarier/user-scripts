@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# Replace an existing PNG with the zopfli-optimized version if smaller.
+#
+
+if [ "z$1" = "z" ] ; then
+    echo "Usage: $(basename "$0") file1.png"
+    exit 1
+fi
+
+input="$1"
+output="$1.zopfli"
+
+zopflipng -m --filters=01234mepb --lossy_transparent "$input" "$output" > /dev/null
+
+input_size="$(stat --format=%s $input)"
+output_size="$(stat --format=%s $output)"
+
+if test "$output_size" -lt "$input_size" ; then
+    mv "$1.zopfli" "$1"
+fi
