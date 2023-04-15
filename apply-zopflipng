@@ -13,8 +13,8 @@ output="$1.zopfli"
 
 zopflipng -m --filters=01234mepb --lossy_transparent "$input" "$output" > /dev/null
 
-input_size="$(stat --format=%s $input)"
-output_size="$(stat --format=%s $output)"
+input_size=$(stat --format=%s "$input")
+output_size=$(stat --format=%s "$output")
 
 if test "$output_size" -lt "$input_size" ; then
     mv "$1.zopfli" "$1"
