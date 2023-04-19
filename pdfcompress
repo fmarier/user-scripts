@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Compress a PDF
+#
+
+if [ "z$1" = "z" ] ; then
+    echo "Usage: $(basename "$0") input.pdf"
+    exit 1
+fi
+
+input="$1"
+output="$1.compressed"
+
+gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$output" "$input"
