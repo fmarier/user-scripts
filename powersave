@@ -9,7 +9,11 @@ ip link set enp4s0 down
 ip link set docker0 down
 
 # Turn off unnecessary services that may draw power
-systemctl stop docker.service docker.socket lxc.service lxcfs.service lxc-net.service code42.service tor.service
+systemctl stop docker.service docker.socket
+systemctl stop lxc.service lxcfs.service lxc-net.service
+systemctl stop code42.service
+systemctl stop crashplan.service
+systemctl stop tor.service
 
 # powertop tunables
 echo 'min_power' > '/sys/class/scsi_host/host0/link_power_management_policy'
@@ -24,6 +28,7 @@ echo 'auto' > '/sys/bus/pci/devices/0000:00:17.0/ata4/power/control'
 echo 'auto' > '/sys/bus/pci/devices/0000:00:17.0/ata5/power/control'
 echo 'auto' > '/sys/bus/i2c/devices/i2c-6/device/power/control' # NVIDIA GPU
 echo 'auto' > '/sys/bus/usb/devices/1-2/power/control' # YubiKey
+echo 'auto' > '/sys/bus/usb/devices/2-2/power/control' # YubiKey
 echo '1500' > '/proc/sys/vm/dirty_writeback_centisecs'
 echo 'auto' > '/sys/block/sda/device/power/control'
 # TODO: echo 'auto' > '/sys/bus/usb/devices/1-2/power/control' # One for each USB device
