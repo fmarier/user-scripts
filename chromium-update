@@ -8,4 +8,4 @@ if [ ! -e LICENSE.chromium_os ] ; then
 fi
 
 git rebase-update
-gclient sync
+gclient sync -D
