@@ -1,13 +1,15 @@
 #!/bin/sh
 
-POP_FILE="$(mktemp)"
+POP1_FILE="$(mktemp)"
+POP2_FILE="$(mktemp)"
 IMAP1_FILE="$(mktemp)"
 IMAP2_FILE="$(mktemp)"
 SMTP1_FILE="$(mktemp)"
 SMTP2_FILE="$(mktemp)"
 SMTP3_FILE="$(mktemp)"
 
-echo "" | openssl s_client -connect pop.gmail.com:995 -showcerts > "$POP_FILE" 2> /dev/null
+echo "" | openssl s_client -connect pop.gmail.com:995 -showcerts > "$POP1_FILE" 2> /dev/null
+echo "" | openssl s_client -connect pop.kolabnow.com:995 -showcerts > "$POP2_FILE" 2> /dev/null
 echo "" | openssl s_client -connect imap.gmail.com:993 -showcerts > "$IMAP1_FILE" 2> /dev/null
 echo "" | openssl s_client -connect imap.kolabnow.com:993 -showcerts > "$IMAP2_FILE" 2> /dev/null
 echo "" | openssl s_client -connect smtp.gmail.com:465 -showcerts > "$SMTP1_FILE" 2> /dev/null
@@ -15,7 +17,11 @@ echo "" | openssl s_client -connect smtp.kolabnow.com:465 -showcerts > "$SMTP2_F
 echo "" | openssl s_client -connect smtp.novuscom.net:465 -showcerts > "$SMTP3_FILE" 2> /dev/null
 
 echo "pop.gmail.com:"
-openssl x509 -fingerprint -md5 -noout -in "$POP_FILE" && rm "$POP_FILE"
+openssl x509 -fingerprint -md5 -noout -in "$POP1_FILE" && rm "$POP1_FILE"
+
+echo
+echo "pop.kolabnow.com:"
+openssl x509 -fingerprint -md5 -noout -in "$POP2_FILE" && rm "$POP2_FILE"
 
 echo
 echo "imap.gmail.com:"
