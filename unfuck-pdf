@@ -1,3 +1,3 @@
 #!/bin/sh
 pdf2djvu -d 1200 "$1" > "$1.djvu"
-ps2pdf13 -r1200x1200 "$1" "$(basename "$1" .pdf)-1200dpi.pdf"
+ps2pdf13 -r1200x1200 "$1" "$1-1200dpi.pdf"
