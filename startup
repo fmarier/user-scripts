@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Needed by workrave
 mkdir -p /dev/shm/workrave-francois
@@ -12,6 +12,7 @@ setxkbmap -option caps:ctrl_modifier
 /usr/bin/systemctl --user import-environment DISPLAY
 /usr/libexec/gsd-xsettings &
 /usr/bin/systemctl start --user ssh-agent.service
+eval "$(ssh-agent)" > /dev/null
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 gnome-screensaver &
 nm-applet &
