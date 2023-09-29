@@ -9,7 +9,8 @@ ip link set enp4s0 down
 ip link set docker0 down
 
 # Turn off unnecessary services that may draw power
-systemctl stop docker.service docker.socket
+systemctl stop docker.socket
+systemctl stop docker.service containerd.service
 systemctl stop lxc.service lxcfs.service lxc-net.service
 systemctl stop code42.service
 systemctl stop crashplan.service
