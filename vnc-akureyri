@@ -2,8 +2,4 @@
 #
 # http://feeding.cloud.geek.nz/posts/high-latency-vnc-tech-support/
 
-function error {
-        echo "Did you forget to ssh manually into the gateway forwarding the ports?"
-}
-
-ssvncviewer -compresslevel 9 -quality 3 -bgr233 -encodings zrle -scale 1920x1000 -ycrop 1024 localhost || error
+ssvncviewer -compresslevel 9 -quality 3 -bgr233 -encodings zrle -scale 1920x1000 -ycrop 1024 localhost
