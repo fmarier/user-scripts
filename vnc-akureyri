@@ -2,4 +2,4 @@
 #
 # http://feeding.cloud.geek.nz/posts/high-latency-vnc-tech-support/
 
-ssvncviewer -compresslevel 9 -quality 3 -bgr233 -encodings zrle -scale 1920x1000 -ycrop 1024 localhost
+ssvncviewer -compresslevel 9 -quality 3 -bgr233 -encodings zrle -scale 1920x1000 -ycrop 1024 akureyri.leo-squeaker.ts.net
