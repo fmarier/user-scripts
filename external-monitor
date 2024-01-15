@@ -11,15 +11,27 @@ if xrandr | grep --silent LVDS-1 ; then
         xrandr -d :1 --output DP-3 --auto
         xrandr -d :1 --output HDMI-3 --right-of LVDS-1
 elif xrandr | grep --silent eDP-1 ; then
-        # System76
-        if xrandr | grep --silent "HDMI-1 disconnected" ; then
-                xrandr -d :1 --output HDMI-1 --auto
-                xrandr -d :1 --output eDP-1 --auto --primary
+        if xrandr | grep --silent HDMI-1 ; then
+                # System76
+                if xrandr | grep --silent "HDMI-1 disconnected" ; then
+                        xrandr -d :1 --output HDMI-1 --auto
+                        xrandr -d :1 --output eDP-1 --auto --primary
+                else
+                        xrandr -d :1 --output eDP-1 --auto
+                        xrandr -d :1 --output HDMI-1 --auto --primary
+                fi
+                xrandr -d :1 --output HDMI-1 --right-of eDP-1
         else
-                xrandr -d :1 --output eDP-1 --auto
-                xrandr -d :1 --output HDMI-1 --auto --primary
+                # Framework
+                if xrandr | grep --silent "DP-2 disconnected" ; then
+                        xrandr -d :1 --output DP-2 --auto
+                        xrandr -d :1 --output eDP-1 --auto --primary
+                else
+                        xrandr -d :1 --output eDP-1 --auto
+                        xrandr -d :1 --output DP-2 --auto --primary
+                fi
+                xrandr -d :1 --output DP-2 --right-of eDP-1
         fi
-        xrandr -d :1 --output HDMI-1 --right-of eDP-1
 elif xrandr | grep --silent eDP-1-1 ; then
         # System76
         if xrandr | grep --silent "DP-1 disconnected" ; then
