@@ -34,5 +34,4 @@ rm -rf "$HOME/.local/share/Trash"
 
 # Applications
 syncthing -no-browser &
-emacs --daemon
 ionice -n7 akregator &
