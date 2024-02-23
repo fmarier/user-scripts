@@ -27,9 +27,10 @@ echo 'auto' > '/sys/bus/pci/devices/0000:00:17.0/ata2/power/control'
 echo 'auto' > '/sys/bus/pci/devices/0000:00:17.0/ata3/power/control'
 echo 'auto' > '/sys/bus/pci/devices/0000:00:17.0/ata4/power/control'
 echo 'auto' > '/sys/bus/pci/devices/0000:00:17.0/ata5/power/control'
-echo 'auto' > '/sys/bus/i2c/devices/i2c-6/device/power/control' # NVIDIA GPU
 echo 'auto' > '/sys/bus/usb/devices/1-2/power/control' # YubiKey
 echo 'auto' > '/sys/bus/usb/devices/2-2/power/control' # YubiKey
+echo 'auto' > '/sys/bus/usb/devices/3-2/power/control' # YubiKey (Framework)
+echo 'auto' > '/sys/bus/usb/devices/3-3/power/control' # YubiKey expansion card (Framework)
 echo '1500' > '/proc/sys/vm/dirty_writeback_centisecs'
 echo 'auto' > '/sys/block/sda/device/power/control'
 # TODO: echo 'auto' > '/sys/bus/usb/devices/1-2/power/control' # One for each USB device
