@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Used to extract and compress audio from YouTube videos
+
+if [ "z$1" = "z" ] ; then
+    echo "Usage: $0 youtube_URL"
+    exit 2
+fi
+
+
+OUTDIR=$(mktemp -d)
+pushd "$OUTDIR"
+yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 "$1"
+detox -s utf_8 *.mp3
+popd
+mv -i "$OUTDIR/"*.mp3 .
+rmdir "$OUTDIR"
