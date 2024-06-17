@@ -24,6 +24,7 @@ nm-applet &
 /usr/bin/smart-notifier &
 /usr/libexec/usbauth-notifier/usbauth-notifier &
 /usr/bin/redshift-gtk &
+/usr/bin/xcompmgr &
 
 # Vacuuming SQLite databases
 find "$HOME/.mozilla/" \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
