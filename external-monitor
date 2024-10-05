@@ -23,14 +23,14 @@ elif xrandr | grep --silent eDP-1 ; then
                 xrandr -d :1 --output HDMI-1 --right-of eDP-1
         else
                 # Framework
-                if xrandr | grep --silent "DP-4-1 disconnected" ; then
-                        xrandr -d :1 --output DP-4-1 --auto
+                if xrandr | grep --silent "DP-1 disconnected" ; then
+                        xrandr -d :1 --output DP-1 --auto
                         xrandr -d :1 --output eDP-1 --auto --primary
                 else
                         xrandr -d :1 --output eDP-1 --auto
-                        xrandr -d :1 --output DP-4-1 --auto --primary
+                        xrandr -d :1 --output DP-1 --auto --primary
                 fi
-                xrandr -d :1 --output DP-4-1 --right-of eDP-1
+                xrandr -d :1 --output DP-1 --right-of eDP-1
         fi
 elif xrandr | grep --silent eDP-1-1 ; then
         # System76
