@@ -16,7 +16,6 @@ eval "$(ssh-agent)" > /dev/null
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 gnome-screensaver &
 nm-applet &
-/home/francois/devel/remote/user-scripts/i3-battery-indicator &
 /usr/bin/systemctl start --user dunst
 ~/.fehbg
 /usr/bin/aa-notify -p
