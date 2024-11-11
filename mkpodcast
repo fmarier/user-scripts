@@ -16,4 +16,4 @@ mplayer -msglevel all=0 -novideo -nocache -nobps -ni -forceidx -mc 0 -ao pcm:wav
 oggenc --downmix --output="$1.ogg" audiodump.wav && rm audiodump.wav
 #sox audiodump.wav --rate 32000 -b 8 --channels 1 audiodump_small.wav vol 0.9 dither && rm audiodump.wav
 #speexenc --denoise --vbr --dtx audiodump_small.wav "$1.spx" && rm audiodump_small.wav
-detox "$1.ogg"
+detox -s utf_8 "$1.ogg"
