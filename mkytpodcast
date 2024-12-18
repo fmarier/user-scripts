@@ -12,6 +12,12 @@ OUTDIR=$(mktemp -d)
 pushd "$OUTDIR"
 yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --restrict-filenames --add-metadata "$1"
 detox -s utf_8 *.mp3
+
+# Copy artist name into album field
+id3v2 -C ./*.mp3
+AUTHOR=$(id3v2 -R ./*.mp3 | grep '^TPE1:' | cut -f2 -d':' | awk '{$1=$1};1')
+id3v2 -A "$AUTHOR" ./*.mp3
+
 popd
 mv -i "$OUTDIR/"*.mp3 .
 rmdir "$OUTDIR"
