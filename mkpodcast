@@ -1,19 +1,11 @@
 #!/bin/sh
 #
-# Used to extract and compress audio from video files
-
-if [ -e "audiodump.wav" ] ; then
-    echo "ERROR: audiodump already exists"
-    exit 1
-fi
+# Used to extract and compress audio from audio or video files
 
 if [ ! -r "$1" ] ; then
     echo "Usage: $0 file_to_dump"
     exit 2
 fi
 
-mplayer -msglevel all=0 -novideo -nocache -nobps -ni -forceidx -mc 0 -ao pcm:waveheader "$1"
-oggenc --downmix --output="$1.ogg" audiodump.wav && rm audiodump.wav
-#sox audiodump.wav --rate 32000 -b 8 --channels 1 audiodump_small.wav vol 0.9 dither && rm audiodump.wav
-#speexenc --denoise --vbr --dtx audiodump_small.wav "$1.spx" && rm audiodump_small.wav
-detox -s utf_8 "$1.ogg"
+ffmpeg -i $1 -c:a libmp3lame -ac 2 -q:a 2 $1.mp3
+detox -s utf_8 "$1.mp3"
