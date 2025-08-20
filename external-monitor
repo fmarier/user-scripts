@@ -22,7 +22,7 @@ elif xrandr | grep --silent eDP-1 ; then
                 fi
                 xrandr -d :1 --output HDMI-1 --right-of eDP-1
         else
-                # Framework
+                # Framework (Intel)
                 if xrandr | grep --silent "DP-4 disconnected" ; then
                         xrandr -d :0 --output DP-4 --auto
                         xrandr -d :0 --output eDP-1 --auto --primary
@@ -42,6 +42,16 @@ elif xrandr | grep --silent eDP-1-1 ; then
                 xrandr -d :1 --output DP-1 --auto --primary
         fi
         xrandr -d :1 --output DP-1 --right-of eDP-1-1
+elif xrandr | grep --silent eDP ; then
+        # Framework (AMD)
+        if xrandr | grep --silent "DisplayPort-1 disconnected" ; then
+                xrandr -d :0 --output DisplayPort-1 --auto
+                xrandr -d :0 --output eDP --auto --primary
+        else
+                xrandr -d :0 --output eDP --auto
+                xrandr -d :0 --output DisplayPort-1 --auto --primary
+        fi
+        xrandr -d :0 --output DisplayPort-1 --right-of eDP
 else
         echo "Unsupported configuration"
 fi
