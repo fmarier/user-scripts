@@ -10,7 +10,7 @@ fi
 
 OUTDIR=$(mktemp -d)
 pushd "$OUTDIR" || exit 1
-yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --restrict-filenames --add-metadata "$1"
+yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --restrict-filenames --add-metadata "$1" || exit 1
 detox -s utf_8 ./*.mp3
 
 # Copy artist name into album field
