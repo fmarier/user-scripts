@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Remove screen locking/blanking
+killall workrave
+killall xautolock
+killall gnome-screensaver
+xset s off -dpms
+
+# Network optimization
+nmcli radio wifi off
+
+# Camera alignment
+v4l2-ctl -d /dev/video2 -c zoom_absolute=190
+v4l2-ctl -d /dev/video2 -c tilt_absolute=-16000
+
+# Ensure right audio devices are set and unmuted
+pactl set-default-sink alsa_output.usb-Generic_USB_Audio-00.analog-stereo
+pactl set-default-source alsa_input.usb-Deity_Deity_VO-7U_207A31755131-00.analog-stereo
+pactl set-sink-mute @DEFAULT_SINK@ 0
+pactl set-source-mute @DEFAULT_SOURCE@ 0
+
+# Remove distrations (but keep email ON for coordination)
+killall akregator
+killall gajim
+killall redshift-gtk
+
+# Disable notifications
+#gsettings set org.gnome.desktop.notifications show-banners false # persistent change
+dunstctl set-paused true
+notify-send "NOTIFICATIONS ARE STILL ON"
