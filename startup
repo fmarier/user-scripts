@@ -23,6 +23,7 @@ nm-applet &
 /usr/libexec/usbauth-notifier/usbauth-notifier &
 /usr/bin/redshift-gtk &
 /usr/bin/xcompmgr &
+/usr/bin/snixembed --fork
 
 # Vacuuming SQLite databases
 find "$HOME/.mozilla/" \( -name "*.sqlite" \) -execdir sqlite3 {} "vacuum" \;
