@@ -31,16 +31,16 @@ elif xrandr | grep --silent eDP-1-1 ; then
                 xrandr -d :1 --output DP-1 --auto --primary
         fi
         xrandr -d :1 --output DP-1 --right-of eDP-1-1
-elif xrandr | grep --silent eDP ; then
+elif xrandr | grep --silent eDP-1 ; then
         # Framework (AMD)
-        if xrandr | grep --silent "DisplayPort-0 disconnected" ; then
-                xrandr -d :0 --output DisplayPort-0 --auto
-                xrandr -d :0 --output eDP --auto --primary
+        if xrandr | grep --silent "DP-1 disconnected" ; then
+                xrandr -d :0 --output DP-1 --auto
+                xrandr -d :0 --output eDP-1 --auto --primary
         else
-                xrandr -d :0 --output eDP --auto
-                xrandr -d :0 --output DisplayPort-0 --auto --primary
+                xrandr -d :0 --output eDP-1 --auto
+                xrandr -d :0 --output DP-1 --auto --primary
         fi
-        xrandr -d :0 --output DisplayPort-0 --right-of eDP
+        xrandr -d :0 --output DP-1 --right-of eDP-1
 else
         echo "Unsupported configuration"
 fi
