@@ -18,7 +18,7 @@ if [ ! -e "$KEYDIR" ] ; then
 fi
 
 # Check the permissions on the .totp directory
-if [ -z "$(find "$KEYDIR" -type d -perm 0700)" ]; then
+if [ -z "$(find "$KEYDIR" -maxdepth 0 -type d -perm 0700)" ]; then
         echo "The permissions of the $KEYDIR directory must be exactly 0700"
         exit 1
 fi
@@ -37,7 +37,7 @@ KEY="$KEYDIR/$PROVIDER"
 FOUND=
 if [ -r "$KEY" ] ; then
         FOUND="yes"
-        CODE="$(/usr/bin/oathtool --totp --base32 "$(<"$KEY")")"
+        CODE="$(/usr/bin/oathtool --totp --base32 - < "$KEY")"
         if [ "z$DISPLAY" != "z" ] ; then
                 echo -n "$CODE" | xsel --clipboard
         fi
