@@ -1,3 +1,2 @@
 #!/bin/sh
-# shellcheck disable=SC2048,SC2086
-gs -sDEVICE=pdfwrite -sOutputFile=merged.pdf -q -dNOPAUSE $* quit.ps
+gs -sDEVICE=pdfwrite -sOutputFile=merged.pdf -q -dNOPAUSE "$@" quit.ps

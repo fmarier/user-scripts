@@ -10,5 +10,4 @@
 # Extract the hostname from an scp destination
 hostname="$(echo "${!#}" | perl -pe 's/^([^@]*\@)?([^:]+):.*$/$2/')"
 
-# shellcheck disable=SC2048,SC2086
-fwknop -n "$hostname" && scp $*
+fwknop -n "$hostname" && scp "$@"

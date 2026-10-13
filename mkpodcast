@@ -7,5 +7,5 @@ if [ ! -r "$1" ] ; then
     exit 2
 fi
 
-ffmpeg -i $1 -c:a libmp3lame -ac 2 -q:a 2 $1.mp3
+ffmpeg -i "$1" -c:a libmp3lame -ac 2 -q:a 2 "$1.mp3"
 detox -s utf_8 "$1.mp3"
