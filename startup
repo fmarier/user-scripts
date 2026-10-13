@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Needed by workrave
-mkdir -p /dev/shm/workrave-francois
-
 # Xorg tweaks
 xautolock -time 30 -locker "i3lock -c 000000 -f" &
 xset s blank -dpms
