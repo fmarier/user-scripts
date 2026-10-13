@@ -12,4 +12,5 @@ sudo -k
 dbus-send --session --dest=org.kde.akregator --type=method_call /Akregator  org.kde.akregator.part.saveSettings
 
 sync
+i3lock -c 000000 -f
 systemctl suspend
