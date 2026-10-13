@@ -21,9 +21,9 @@ if [ "$STEP" -lt 1 ]; then
     STEP=1
 fi
 
-$MPC volume $V > /dev/null
-while [ $V -gt 0 ] ; do
-    $MPC --quiet volume $V
+$MPC volume "$V" > /dev/null
+while [ "$V" -gt 0 ] ; do
+    $MPC --quiet volume "$V"
     V=$((V - STEP))
     sleep 1
 done
