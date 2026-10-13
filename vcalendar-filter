@@ -48,7 +48,7 @@ foreach my $entry ( @{$calendar->{entries}} ) {
         next unless defined $entry->property($property);
         $properties->{$property} = join(', ', map { $_->decoded_value } @{$entry->property($property)});
         if ( $property eq 'description' ) {
-            $properties->{$property} = eval qq{"$properties->{$property}"};
+            $properties->{$property} =~ s/\\(?:([nN])|([,;\\]))/defined $1 ? "\n" : $2/ge;
 
             $properties->{$property} = autoformat $properties->{$property}, {
                 all => 1,
