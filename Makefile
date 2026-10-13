@@ -5,10 +5,13 @@ PERL_SCRIPTS := $(call scripts_matching,^\#!/usr/bin/perl)
 PYTHON_SCRIPTS := $(call scripts_matching,^\#!/usr/bin/python)
 ALL_SCRIPTS := $(wildcard [a-z]*)
 UNLINTED_SCRIPTS := $(filter-out $(SHELL_SCRIPTS) $(PERL_SCRIPTS) $(PYTHON_SCRIPTS),$(ALL_SCRIPTS))
+NON_EXECUTABLE_SCRIPTS := $(shell for f in $(ALL_SCRIPTS); do [ -x "$$f" ] || echo "$$f"; done)
 
 test:
 	@echo Checking that all scripts are linted...
 	@test -z "$(UNLINTED_SCRIPTS)" || { echo "No linter for: $(UNLINTED_SCRIPTS)"; exit 1; }
+	@echo Checking that all scripts are executable...
+	@test -z "$(NON_EXECUTABLE_SCRIPTS)" || { echo "Not executable: $(NON_EXECUTABLE_SCRIPTS)"; exit 1; }
 	@echo Running shellcheck...
 	@shellcheck --exclude SC2096 $(SHELL_SCRIPTS)
 	@echo Running bashate...
