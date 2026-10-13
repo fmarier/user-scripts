@@ -34,7 +34,7 @@ import sys
 
 def print_header():
     print('"Radio ID","Callsign","Name","City","State","Country","Remarks",'
-          '"Call Type","Call Alert"', end = "\r\n")
+          '"Call Type","Call Alert"', end="\r\n")
 
 
 def read_file(filename):
@@ -50,7 +50,7 @@ def read_file(filename):
                 continue
 
             s = '"%s","%s","%s %s","%s","%s","%s","%s","",""' % tuple(row)
-            print(s, end = "\r\n")
+            print(s, end="\r\n")
 
 
 def main():
